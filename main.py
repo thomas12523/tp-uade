@@ -19,9 +19,74 @@ Pendientes:
 #----------------------------------------------------------------------------------------------
 # FUNCIONES
 #----------------------------------------------------------------------------------------------
-def altaCliente(_clientes):
-    ...
-    return _clientes
+def agregarSalon(_salones):
+    while True:
+        IdSalon = input("Ingrese el ID del salón: ")
+        if IdSalon in _salones:
+            print("El ID del salón ya existe. Intente con otro ID.")
+        else:
+            break
+        
+    NombreSalon = input("Ingrese el nombre del salón: ")
+    Ubicacion = input("Ingrese la ubicación del salón: ")
+    Capacidad = int(input("Ingrese la capacidad del salón: "))
+    Telefonos = [input("Ingrese el primer teléfono: "),
+                 input("Ingrese el segundo teléfono: "),
+                 input("Ingrese el tercer teléfono: ")]
+    
+    _salones[IdSalon] = {
+        "activo": True,
+        "NombreSalon": NombreSalon,
+        "Ubicacion": Ubicacion,
+        "Capacidad": Capacidad,
+        "Telefonos": {"telefono1": Telefonos[0],
+                     "telefono2": Telefonos[1],
+                     "telefono3": Telefonos[2]}
+    }
+
+    return _salones
+
+def modificarSalon(_salones):
+    while True:
+        IdSalon = input("Ingrese el ID del salón a modificar: ")
+        if IdSalon not in _salones:
+            print("El ID del salón no existe. Intente con otro ID.")
+        else:
+            break
+    
+    NombreSalon = input("Ingrese el nuevo nombre del salón: ")
+    Ubicacion = input("Ingrese la nueva ubicación del salón: ")
+    Capacidad = int(input("Ingrese la nueva capacidad del salón: "))
+    Telefonos = [input("Ingrese el nuevo primer teléfono: "),
+                 input("Ingrese el nuevo segundo teléfono: "),
+                 input("Ingrese el nuevo tercer teléfono: ")]
+    _salones[IdSalon] = {
+        "NombreSalon": NombreSalon,
+        "Ubicacion": Ubicacion,
+        "Capacidad": Capacidad,
+        "Telefonos": {"telefono1": Telefonos[0],
+                     "telefono2": Telefonos[1],
+                     "telefono3": Telefonos[2]}
+    }
+
+    return _salones
+
+def inactivarSalon(_salones):
+    while True:
+        IdSalon = input("Ingrese el ID del salón a inactivar: ")
+        if IdSalon not in _salones:
+            print("El ID del salón no existe. Intente con otro ID.")
+        else:
+            break
+
+    _salones[IdSalon]["activo"] = False
+    return _salones
+
+def listarSalonesActivos(_salones):
+    for salon in _salones:
+        if _salones[salon]["activo"] == True:
+            print(f"IdSalon: {salon}")
+            print(_salones[salon])
 
 
 
@@ -32,7 +97,24 @@ def main():
     #-------------------------------------------------
     # Inicialización de variables
     #----------------------------------------------------------------------------------------------
-    clientes = {...}
+    salones =   {'001':{"activo": True,
+                     "NombreSalon": "chiquimundo",
+                     "Ubicacion": "san martin",
+                     "Capacidad" : 30,
+                     "Telefonos": {"Telefono1": "1",
+                                   "Telefono2": "2",
+                                   "Telefono3": "3"
+                                   }
+                    },
+                '002':{"activo": False,
+                     "NombreSalon": "pepe",
+                     "Ubicacion": "pepe",
+                     "Capacidad" : 30,
+                     "Telefonos": {"Telefono1": "1",
+                                   "Telefono2": "2",
+                                   "Telefono3": "3"
+                                   }
+                    }}
 
 
     #-------------------------------------------------
@@ -136,16 +218,23 @@ def main():
                     break # No sale del programa, sino que vuelve al menú anterior
                 
                 elif opcionSubmenu == "1":   # Opción 1 del submenú
-                    ... #Ingresar salón
+                    salones = agregarSalon(salones)
+                    print("Salones después de agregar uno nuevo:")
+                    print(salones)
                     
                 elif opcionSubmenu == "2":   # Opción 2 del submenú
-                    ... # Modificar salón
+                    salones = modificarSalon(salones)
+                    print("Salones después de modificar:")
+                    print(salones)
                 
                 elif opcionSubmenu == "3":   # Opción 3 del submenú
-                    ... # Eliminar salón
+                    salones = inactivarSalon(salones)
+                    print("Salones después de inactivar uno:")
+                    print(salones)
                 
                 elif opcionSubmenu == "4":   # Opción 4 del submenú
-                    ... # Listado de salones activos
+                    print("Listado de salones activos:")
+                    listarSalonesActivos(salones)
 
                 input("\nPresione ENTER para volver al menú.") # Pausa entre opciones
                 print("\n\n")
