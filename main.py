@@ -13,81 +13,65 @@ Pendientes:
 #----------------------------------------------------------------------------------------------
 # MÓDULOS
 #----------------------------------------------------------------------------------------------
-...
+from gestionSalones import agregarSalon, modificarSalon, inactivarSalon, listarSalonesActivos
 
 
 #----------------------------------------------------------------------------------------------
 # FUNCIONES
 #----------------------------------------------------------------------------------------------
-def agregarSalon(_salones):
-    while True:
-        IdSalon = input("Ingrese el ID del salón: ")
-        if IdSalon in _salones:
-            print("El ID del salón ya existe. Intente con otro ID.")
-        else:
-            break
-        
-    NombreSalon = input("Ingrese el nombre del salón: ")
-    Ubicacion = input("Ingrese la ubicación del salón: ")
-    Capacidad = int(input("Ingrese la capacidad del salón: "))
-    Telefonos = [input("Ingrese el primer teléfono: "),
-                 input("Ingrese el segundo teléfono: "),
-                 input("Ingrese el tercer teléfono: ")]
+def gestorIdSalon(case, salones):
+    """
+    Descripción: Gestiona el ID del salón según el caso, caso 1 es para un nuevo salón, caso 2 para modificar un salon, caso 3 para inactivarlo.
+    Input:
+        case es del tipo int y salones es un diccionario con los salones existentes.
+    Output:
+        IdSalon (str): ID del salón ingresado por el usuario.
     
-    _salones[IdSalon] = {
-        "activo": True,
-        "NombreSalon": NombreSalon,
-        "Ubicacion": Ubicacion,
-        "Capacidad": Capacidad,
-        "Telefonos": {"telefono1": Telefonos[0],
-                     "telefono2": Telefonos[1],
-                     "telefono3": Telefonos[2]}
-    }
-
-    return _salones
-
-def modificarSalon(_salones):
-    while True:
-        IdSalon = input("Ingrese el ID del salón a modificar: ")
-        if IdSalon not in _salones:
-            print("El ID del salón no existe. Intente con otro ID.")
-        else:
-            break
+    """
+    if case == 1:
+        while True:
+            IdSalon = input("Ingrese el ID del salón: ")
+            if IdSalon in salones:
+                print("El ID del salón ya existe. Intente con otro ID.")
+            else:
+                return IdSalon
+    elif case == 2:
+        while True:
+            IdSalon = input("Ingrese el ID del salón a modificar: ")
+            if IdSalon not in salones:
+                print("El ID del salón no existe. Intente con otro ID.")
+            else:
+                return IdSalon
+    elif case == 3:
+        while True:
+            IdSalon = input("Ingrese el ID del salón a inactivar: ")
+            if IdSalon not in salones:
+                print("El ID del salón no existe. Intente con otro ID.")
+            else:
+                break
     
-    NombreSalon = input("Ingrese el nuevo nombre del salón: ")
-    Ubicacion = input("Ingrese la nueva ubicación del salón: ")
-    Capacidad = int(input("Ingrese la nueva capacidad del salón: "))
-    Telefonos = [input("Ingrese el nuevo primer teléfono: "),
+def getInputSalon(case):
+    """
+    Descripción: Si case es 1, solicita los datos para agregar un salón.
+    Si case es 2, solicita los datos para modificar un salón existente.
+    Input:
+        case (int): 1 para agregar un salón, 2 para modificar un salón.
+    output:
+
+    """
+    if case == 1:
+        nombreSalon = input("Ingrese el nombre del salón: ")
+        ubicacion = input("Ingrese la ubicación del salón: ")
+        capacidad = int(input("Ingrese la capacidad del salón: "))
+        telefonos = [input("Ingrese el primer teléfono: "), input("Ingrese el segundo teléfono: "), input("Ingrese el tercer teléfono: ")]
+        return nombreSalon, ubicacion, capacidad, telefonos
+    elif case == 2:
+        nombreSalon = input("Ingrese el nuevo nombre del salón: ")
+        ubicacion = input("Ingrese la nueva ubicación del salón: ")
+        capacidad = int(input("Ingrese la nueva capacidad del salón: "))
+        telefonos = [input("Ingrese el nuevo primer teléfono: "),
                  input("Ingrese el nuevo segundo teléfono: "),
                  input("Ingrese el nuevo tercer teléfono: ")]
-    _salones[IdSalon] = {
-        "NombreSalon": NombreSalon,
-        "Ubicacion": Ubicacion,
-        "Capacidad": Capacidad,
-        "Telefonos": {"telefono1": Telefonos[0],
-                     "telefono2": Telefonos[1],
-                     "telefono3": Telefonos[2]}
-    }
-
-    return _salones
-
-def inactivarSalon(_salones):
-    while True:
-        IdSalon = input("Ingrese el ID del salón a inactivar: ")
-        if IdSalon not in _salones:
-            print("El ID del salón no existe. Intente con otro ID.")
-        else:
-            break
-
-    _salones[IdSalon]["activo"] = False
-    return _salones
-
-def listarSalonesActivos(_salones):
-    for salon in _salones:
-        if _salones[salon]["activo"] == True:
-            print(f"IdSalon: {salon}")
-            print(_salones[salon])
-
 
 
 #----------------------------------------------------------------------------------------------
@@ -97,7 +81,7 @@ def main():
     #-------------------------------------------------
     # Inicialización de variables
     #----------------------------------------------------------------------------------------------
-    salones =   {'001':{"activo": True,
+    salones =   {'1':{"activo": True,
                      "NombreSalon": "chiquimundo",
                      "Ubicacion": "san martin",
                      "Capacidad" : 30,
@@ -106,7 +90,7 @@ def main():
                                    "Telefono3": "3"
                                    }
                     },
-                '002':{"activo": False,
+                '2':{"activo": False,
                      "NombreSalon": "pepe",
                      "Ubicacion": "pepe",
                      "Capacidad" : 30,
@@ -218,19 +202,22 @@ def main():
                     break # No sale del programa, sino que vuelve al menú anterior
                 
                 elif opcionSubmenu == "1":   # Opción 1 del submenú
-                    salones = agregarSalon(salones)
-                    print("Salones después de agregar uno nuevo:")
-                    print(salones)
+                    nombreSalon, ubicacion, capacidad, telefonos = getInputSalon(1)
+                    IdSalon = gestorIdSalon(1, salones)
+                    salones = agregarSalon(salones,nombreSalon, ubicacion, capacidad, telefonos, IdSalon)
+                    print(f"Se ha creado el salón satisfactoriamente.\nSalones después de agregar el nuevo:\n{salones}")
                     
-                elif opcionSubmenu == "2":   # Opción 2 del submenú
-                    salones = modificarSalon(salones)
-                    print("Salones después de modificar:")
-                    print(salones)
+                elif opcionSubmenu == "2": # Opción 2 del submenú
+                    nombreSalon, ubicacion, capacidad, telefonos = getInputSalon(2)
+                    idSalon = gestorIdSalon(2, salones)
+                    salones = modificarSalon(salones,nombreSalon, ubicacion, capacidad, telefonos, IdSalon)
+                    print(f"Se ha modificado el salón satisfactoriamente.\nSalones después de modificar:\n{salones}")
                 
-                elif opcionSubmenu == "3":   # Opción 3 del submenú
-                    salones = inactivarSalon(salones)
-                    print("Salones después de inactivar uno:")
-                    print(salones)
+                elif opcionSubmenu == "3": # Opción 3 del submenú
+                    idSalon = gestorIdSalon(3,salones)   
+                    salones = inactivarSalon(salones,idSalon)
+                    print(f"Se ha inactivado el salón con ID {idSalon} satisfactoriamente.")
+                    print(f"Salones después de inactivar uno:\n{salones}")
                 
                 elif opcionSubmenu == "4":   # Opción 4 del submenú
                     print("Listado de salones activos:")
