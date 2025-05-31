@@ -1,4 +1,4 @@
-def agregarBanda(nombreBanda, email, tarifa30Min, telefono, idBanda):
+def agregarBanda(bandas,nombreBanda, email, tarifa30Min, telefono, idBanda):
     bandas[idBanda] = {
         "activo": True,
         "NombreBanda": nombreBanda,
@@ -11,7 +11,7 @@ def agregarBanda(nombreBanda, email, tarifa30Min, telefono, idBanda):
     return bandas
 
 
-def modificarBanda(bandas, nombreBanda, email, tarifa30Min, telefono, idBanda):
+def modificarBanda(bandas, nombreBanda, email, tarifa30Min, generos, idBanda):
     
     bandas[idBanda] = {
         "NombreBanda": nombreBanda,

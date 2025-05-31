@@ -14,7 +14,7 @@ Pendientes:
 # MÓDULOS
 #----------------------------------------------------------------------------------------------
 from gestionSalones import agregarSalon, modificarSalon, inactivarSalon, listarSalonesActivos
-
+from checkInputs import checkInt, checkTelefono, checkString
 
 #----------------------------------------------------------------------------------------------
 # FUNCIONES
@@ -49,29 +49,52 @@ def gestorIdSalon(case, salones):
                 print("El ID del salón no existe. Intente con otro ID.")
             else:
                 break
+            return IdSalon
     
 def getInputSalon(case):
     """
-    Descripción: Si case es 1, solicita los datos para agregar un salón.
-    Si case es 2, solicita los datos para modificar un salón existente.
-    Input:
-        case (int): 1 para agregar un salón, 2 para modificar un salón.
-    output:
+    Descripción: Solicita los datos necesarios para agregar o modificar un salón. Si es case 1 entonces es para agregar un salón, si es case 2 entonces es para modificar un salón. Se utiliza un condicional para si es case 1 o 2, así se muestra el texto correspondiente. Además, se valida que los datos ingresados sean correctos.
 
+    Input: case es un entero que indica si es para agregar (1) o modificar (2) un salón.
+    Output:
+        tupla: (nombreSalon, ubicacion, capacidad, telefonos)
     """
-    if case == 1:
-        nombreSalon = input("Ingrese el nombre del salón: ")
-        ubicacion = input("Ingrese la ubicación del salón: ")
-        capacidad = int(input("Ingrese la capacidad del salón: "))
-        telefonos = [input("Ingrese el primer teléfono: "), input("Ingrese el segundo teléfono: "), input("Ingrese el tercer teléfono: ")]
-        return nombreSalon, ubicacion, capacidad, telefonos
-    elif case == 2:
-        nombreSalon = input("Ingrese el nuevo nombre del salón: ")
-        ubicacion = input("Ingrese la nueva ubicación del salón: ")
-        capacidad = int(input("Ingrese la nueva capacidad del salón: "))
-        telefonos = [input("Ingrese el nuevo primer teléfono: "),
-                 input("Ingrese el nuevo segundo teléfono: "),
-                 input("Ingrese el nuevo tercer teléfono: ")]
+    while True:
+        nombreSalon = input(f"Ingrese el {"" if case == 1 else "nuevo "}nombre del salón: ")
+        if checkString(nombreSalon):
+            break
+        print("El nombre del salón no puede estar vacío. Intentelo de nuevo.")
+
+    while True:
+        ubicacion = input(f"Ingrese la {"" if case == 1 else "nueva "}ubicación del salón: ")
+        if checkString(ubicacion):
+            break
+        print("La ubicación del salón no puede estar vacía. Intentelo de nuevo.")
+
+    while True:
+        capacidad = input(f"Ingrese la {"" if case == 1 else "nueva "}capacidad del salón: ")
+        if checkInt(capacidad):
+            capacidad = int(capacidad)
+            if capacidad > 0:
+                break
+            print("La capacidad debe ser un número entero positivo. Intentelo de nuevo.")
+        else:
+            print("La capacidad debe ser un número entero. Intentelo de nuevo.")
+
+    while True:
+        telefonos = []
+        for i in range(3):
+            telefono = input(f"Ingrese el {"" if case == 1 else "nuevo "}teléfono {i+1} (10 dígitos): ")
+            if checkTelefono(telefono):
+                telefonos.append(telefono)
+            else:
+                print("El teléfono debe ser un número de 10 dígitos. Intentelo de nuevo.")
+                break
+        if len(telefonos) == 3:
+            break
+
+    return nombreSalon, ubicacion, capacidad, telefonos
+
 
 
 #----------------------------------------------------------------------------------------------
