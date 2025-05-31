@@ -228,19 +228,18 @@ def main():
                     nombreSalon, ubicacion, capacidad, telefonos = getInputSalon(1)
                     IdSalon = gestorIdSalon(1, salones)
                     salones = agregarSalon(salones,nombreSalon, ubicacion, capacidad, telefonos, IdSalon)
-                    print(f"Se ha creado el salón satisfactoriamente.\nSalones después de agregar el nuevo:\n{salones}")
+                    print(f"Se ha creado el salón satisfactoriamente.")
                     
                 elif opcionSubmenu == "2": # Opción 2 del submenú
                     nombreSalon, ubicacion, capacidad, telefonos = getInputSalon(2)
                     idSalon = gestorIdSalon(2, salones)
                     salones = modificarSalon(salones,nombreSalon, ubicacion, capacidad, telefonos, IdSalon)
-                    print(f"Se ha modificado el salón satisfactoriamente.\nSalones después de modificar:\n{salones}")
+                    print(f"Se ha modificado el salón satisfactoriamente.")
                 
                 elif opcionSubmenu == "3": # Opción 3 del submenú
                     idSalon = gestorIdSalon(3,salones)   
                     salones = inactivarSalon(salones,idSalon)
                     print(f"Se ha inactivado el salón con ID {idSalon} satisfactoriamente.")
-                    print(f"Salones después de inactivar uno:\n{salones}")
                 
                 elif opcionSubmenu == "4":   # Opción 4 del submenú
                     print("Listado de salones activos:")
