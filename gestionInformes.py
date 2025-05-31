@@ -2,7 +2,7 @@ from datetime import datetime, date
 
 # items hace que el diccionario sea una tupla(clave, valor)
 
-def listarEventosDelMes(eventos: list, mes:int):
+def listarEventosDelMes(eventos: dict, mes:int):
     print("Los eventos del mes son:")
     for id_evento, evento in eventos.items():
         eventDate= datetime.strptime(evento["fecha"],"%Y-%m-%d %H:%M:%S")
