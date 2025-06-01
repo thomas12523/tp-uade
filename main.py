@@ -17,6 +17,7 @@ from gestionSalones import agregarSalon, modificarSalon, inactivarSalon, listarS
 from checkInputs import checkInt, checkTelefono, checkString, checkDireccion, checkEmail
 from gestionBandas import agregarBanda, modificarBanda, inactivarBanda, listarBandasActivas
 from gestionInformes import listarEventosDelMes, resumenCantidadEventosPorBanda, topDuracionEventosDelMes, resumenMontoEventosPorBanda
+from gestionarEvento import gestionarEvento
 #----------------------------------------------------------------------------------------------
 # FUNCIONES
 #----------------------------------------------------------------------------------------------
@@ -227,12 +228,7 @@ def main():
                     }}
 
 ## Ilustrativo No sé como lo hace mateo <<<<<<<<<<<<<<<< BORRRAR CUANDO SE SOLUCIONE
-    eventos = {'1':{"Fecha/Hora": 2023-10-01 + " 20:00",
-                     "IDEvento": "soda estereo",
-                     "IdBanda": "nolose@hotmail.com",
-                     "FechaEvento" : "2023-10-01",
-                     "TramosContrados": 3
-                    }}
+    eventos = {}
     #-------------------------------------------------
     # Bloque de menú
     #----------------------------------------------------------------------------------------------
@@ -374,7 +370,7 @@ def main():
                     print("---------------------------")
                     print("MENÚ PRINCIPAL > MENÚ DE GESTIÓN DE EVENTOS")
                     print("---------------------------")
-                    print("[1] Ingresar salón")
+                    print("[1] Registrar de Evento")
                     print("---------------------------")
                     print("[0] Volver al menú anterior")
                     print("---------------------------")
@@ -391,7 +387,17 @@ def main():
                     break # No sale del programa, sino que vuelve al menú anterior
                 
                 elif opcionSubmenu == "1":   # Opción 1 del submenú
-                    ... # Registro de eventos
+                    idEvento = ""
+                    while True:
+                        idBanda = input("Ingrese el ID de la Banda: ")
+                        idSalon = input("Ingrese el ID del Salón: ")
+                        if idBanda in bandas and idSalon in salones:
+                            eventos = gestionarEvento(eventos, idBanda, idSalon)
+                            print(f"Se ha registrado el evento satisfactoriamente.")
+                            break
+                        else:
+                            print("El ID de la Banda o del Salón no existe. Por favor, verifique los IDs ingresados.")
+                            input("Presione ENTER para volver a intentarlo.")
         
         elif opcionMenuPrincipal == "4":   # Opción 4 del menú principal
             while True:
