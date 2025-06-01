@@ -14,18 +14,17 @@ Pendientes:
 # MÓDULOS
 #----------------------------------------------------------------------------------------------
 from gestionSalones import agregarSalon, modificarSalon, inactivarSalon, listarSalonesActivos
-from checkInputs import checkInt, checkTelefono, checkString
-
+from checkInputs import checkInt, checkTelefono, checkString, checkDireccion, checkEmail
+from gestionBandas import agregarBanda, modificarBanda, inactivarBanda, listarBandasActivas
+from gestionInformes import listarEventosDelMes, resumenCantidadEventosPorBanda, topDuracionEventosDelMes, resumenMontoEventosPorBanda
 #----------------------------------------------------------------------------------------------
 # FUNCIONES
 #----------------------------------------------------------------------------------------------
 def gestorIdSalon(case, salones):
     """
     Descripción: Gestiona el ID del salón según el caso, caso 1 es para un nuevo salón, caso 2 para modificar un salon, caso 3 para inactivarlo.
-    Input:
-        case es del tipo int y salones es un diccionario con los salones existentes.
-    Output:
-        IdSalon (str): ID del salón ingresado por el usuario.
+    Input: case es del tipo int y salones es un diccionario con los salones existentes.
+    Output: IdSalon (str): ID del salón ingresado por el usuario.
     
     """
     if case == 1:
@@ -54,10 +53,8 @@ def gestorIdSalon(case, salones):
 def getInputSalon(case):
     """
     Descripción: Solicita los datos necesarios para agregar o modificar un salón. Si es case 1 entonces es para agregar un salón, si es case 2 entonces es para modificar un salón. Se utiliza un condicional para si es case 1 o 2, así se muestra el texto correspondiente. Además, se valida que los datos ingresados sean correctos.
-
     Input: case es un entero que indica si es para agregar (1) o modificar (2) un salón.
-    Output:
-        tupla: (nombreSalon, ubicacion, capacidad, telefonos)
+    Output: tupla (nombreSalon, ubicacion, capacidad, telefonos)
     """
     while True:
         nombreSalon = input(f"Ingrese el {"" if case == 1 else "nuevo "}nombre del salón: ")
@@ -67,9 +64,9 @@ def getInputSalon(case):
 
     while True:
         ubicacion = input(f"Ingrese la {"" if case == 1 else "nueva "}ubicación del salón: ")
-        if checkString(ubicacion):
+        if checkDireccion(ubicacion):
             break
-        print("La ubicación del salón no puede estar vacía. Intentelo de nuevo.")
+        print("Escriba correctamente, dirección espacio numero.")
 
     while True:
         capacidad = input(f"Ingrese la {"" if case == 1 else "nueva "}capacidad del salón: ")
@@ -95,8 +92,98 @@ def getInputSalon(case):
 
     return nombreSalon, ubicacion, capacidad, telefonos
 
+def gestorIdBanda(case, bandas):
+    """
+    Descripción: Gestiona el ID del banda según el caso, caso 1 es para un nuevo banda, caso 2 para modificar un banda, caso 3 para inactivarlo.
+    Input: case es del tipo int y bandas es un diccionario con los bandas existentes.
+    Output: Idbanda (str): ID del banda ingresado por el usuario.
+    
+    """
+    if case == 1:
+        while True:
+            idBanda = input("Ingrese el ID del banda: ")
+            if idBanda in bandas:
+                print("El ID del banda ya existe. Intente con otro ID.")
+            else:
+                return idBanda
+    elif case == 2:
+        while True:
+            idBanda = input("Ingrese el ID del banda a modificar: ")
+            if idBanda not in bandas:
+                print("El ID del banda no existe. Intente con otro ID.")
+            else:
+                return idBanda
+    elif case == 3:
+        while True:
+            idBanda = input("Ingrese el ID del banda a inactivar: ")
+            if idBanda not in bandas:
+                print("El ID del banda no existe. Intente con otro ID.")
+            else:
+                break
+            return idBanda
+    
+def getInputBanda(case):
+    """
+    Descripción: Solicita los datos necesarios para agregar o modificar un salón. Si es case 1 entonces es para agregar un salón, si es case 2 entonces es para modificar un salón. Se utiliza un condicional para si es case 1 o 2, así se muestra el texto correspondiente. Además, se valida que los datos ingresados sean correctos.
+    Input: case es un entero que indica si es para agregar (1) o modificar (2) un salón.
+    Output: tupla (nombreSalon, ubicacion, capacidad, telefonos)
+    """
+    while True:
+        nombreBanda = input(f"Ingrese el {"" if case == 1 else "nuevo "}nombre del banda: ")
+        if checkString(nombreBanda):
+            break
+        print("El nombre del banda no puede estar vacío. Intentelo de nuevo.")
 
+    while True:
+        email = input(f"Ingrese la {"" if case == 1 else "nueva "}ubicación del banda: ")
+        if checkEmail(email):
+            break
+        print("Escriba correctamente, dirección espacio numero.")
 
+    while True:
+        telefono = input(f"Ingrese la {"" if case == 1 else "nueva "}capacidad del banda: ")
+        if checkTelefono(telefono):
+            break
+        else:
+            print("Introducir un telefono valido.")
+
+    while True:
+        tarifa30Min = input(f"Ingrese la {"" if case == 1 else "nueva "}tarifa de 30 minutos de la banda: ")
+        if tarifa30Min.isdigit() and int(tarifa30Min) > 0:
+            break
+        else:
+            print("Introducir una tarifa valida.")
+
+    while True:
+        generos = []
+        for i in range(2):
+            genero = input(f"Ingrese el {"" if case == 1 else "nuevo "}genero {i+1}: ")
+            if checkString(telefono):
+                generos.append(genero)
+            else:
+                print("Solo se permite caracteres no numericos. Intentelo de nuevo.")
+                break
+        if len(generos) == 2:
+            break
+
+    return nombreBanda, email, telefono,tarifa30Min, generos
+
+def getInputMes():
+    """
+    Descripción: Verifica si un mes es válido.
+    Input: mes es del tipo int que representa el mes a verificar (1-12).
+    Output: Devuelve el mes si es válido, solicita al usuario que ingrese un mes válido en caso contrario.
+    """
+    while True:
+        
+        mes = input("Eligir un mes: ")
+        if mes.isdigit() and 1 <= int(mes) <= 12:
+            mes = int(mes)
+            break
+        else:
+            print("Mes inválido. Debe ser un número entre 1 y 12.") 
+    
+    return mes
 #----------------------------------------------------------------------------------------------
 # CUERPO PRINCIPAL
 #----------------------------------------------------------------------------------------------
@@ -122,8 +209,30 @@ def main():
                                    "Telefono3": "3"
                                    }
                     }}
+    bandas =   {'1':{"activo": True,
+                     "NombreBanda": "soda estereo",
+                     "Email": "nolose@hotmail.com",
+                     "Tarifa30Min" : 40000,
+                     "Generos": {"Genero1": "rock",
+                                   "Genero2": "jazz",
+                                   }
+                    },
+                '2':{"activo": False,
+                     "NombreBanda": "soda",
+                     "Email": "lose@hotmail.com",
+                     "Capacidad" : 20000,
+                     "Generos": {"Genero1": "pop",
+                                   "Genero2": "metal",
+                                   }
+                    }}
 
-
+## Ilustrativo No sé como lo hace mateo <<<<<<<<<<<<<<<< BORRRAR CUANDO SE SOLUCIONE
+    eventos = {'1':{"Fecha/Hora": 2023-10-01 + " 20:00",
+                     "IDEvento": "soda estereo",
+                     "IdBanda": "nolose@hotmail.com",
+                     "FechaEvento" : "2023-10-01",
+                     "TramosContrados": 3
+                    }}
     #-------------------------------------------------
     # Bloque de menú
     #----------------------------------------------------------------------------------------------
@@ -182,16 +291,25 @@ def main():
                     break # No sale del programa, sino que vuelve al menú anterior
                 
                 elif opcionSubmenu == "1":   # Opción 1 del submenú
-                    ... #Ingresar bandas
+                    idBanda = gestorIdBanda(1, bandas)
+                    nombreBanda, email, telefono,tarifa30Min, generos = getInputBanda(1)
+                    bandas = agregarBanda(bandas,nombreBanda, email, tarifa30Min, telefono,generos, idBanda)
+                    print(f"Se ha ingresado la banda satisfactoriamente.")
                     
                 elif opcionSubmenu == "2":   # Opción 2 del submenú
-                    ... # Modificar bandas
+                    idBanda = gestorIdBanda(2, bandas)
+                    nombreBanda, email, telefono,tarifa30Min, generos = getInputBanda(2)
+                    bandas = modificarBanda(bandas,nombreBanda, email, tarifa30Min, telefono,generos, idBanda)
+                    print(f"Se ha modificado la banda satisfactoriamente.")
                 
                 elif opcionSubmenu == "3":   # Opción 3 del submenú
-                    ... # Eliminar bandas
+                    idBanda = gestorIdBanda(3, bandas)
+                    bandas = inactivarBanda(bandas,idBanda)
+                    print(f"Se ha inactivado la banda con ID {idBanda} satisfactoriamente.")
                 
                 elif opcionSubmenu == "4":   # Opción 4 del submenú
-                    ... # Listado de bandas activas
+                    print("Listado de bandas activas:")
+                    listarBandasActivas(bandas)
 
                 input("\nPresione ENTER para volver al menú.") # Pausa entre opciones
                 print("\n\n")
@@ -281,12 +399,12 @@ def main():
                     opciones = 4
                     print()
                     print("---------------------------")
-                    print("MENÚ PRINCIPAL > MENÚ DE SALON")
+                    print("MENÚ PRINCIPAL > MENÚ DE INFORMES")
                     print("---------------------------")
                     print("[1] Eventos del Mes")
-                    print("[2] Resumen Anual de eventos por salón(Cantidades)")
-                    print("[3] Resumen Anual de eventos por salón(Pesos)")
-                    print("[4] Banda que más entradas vendió en el mes")
+                    print("[2] Resumen Anual de eventos por banda(Cantidades)")
+                    print("[3] Resumen Anual de eventos por banda(Pesos)")
+                    print("[4] Top 3 eventos con más duración del mes")
                     print("---------------------------")
                     print("[0] Volver al menú anterior")
                     print("---------------------------")
@@ -300,19 +418,20 @@ def main():
                 print()
 
                 if opcionSubmenu == "0": # Opción salir del submenú
-                    break # No sale del programa, sino que vuelve al menú anterior
-                
-                elif opcionSubmenu == "1":   # Opción 1 del submenú
-                    ... # Eventos del Mes
+                    break
+      
+                elif opcionSubmenu == "1": # Opción 1 del submenú
+                    mes = getInputMes()
+                    listarEventosDelMes(eventos,mes)
                     
                 elif opcionSubmenu == "2":   # Opción 2 del submenú
-                    ... # Resumen Anual de eventos por salón(Cantidades)
+                    resumenCantidadEventosPorBanda(eventos)
                 
                 elif opcionSubmenu == "3":   # Opción 3 del submenú
-                    ... # Resumen Anual de eventos por salón(Pesos)
+                    resumenMontoEventosPorBanda(eventos, bandas)
                 
                 elif opcionSubmenu == "4":   # Opción 4 del submenú
-                    ... # Banda que más entradas vendió en el mes
+                    topDuracionEventosDelMes(eventos)
 
                 input("\nPresione ENTER para volver al menú.") # Pausa entre opciones
                 print("\n\n")

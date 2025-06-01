@@ -12,6 +12,7 @@ def listarEventosDelMes(eventos: dict, mes:int):
             print(f"   Banda ID: {evento['idBanda']}")
             print(f"   Salón ID: {evento['idSalon']}")
             print(f"   Tramos contratados: {evento['tramosContratados']}")
+    return
 
 def resumenCantidadEventosPorBanda(eventos: dict):
     diccionarioEventos={}
@@ -22,6 +23,7 @@ def resumenCantidadEventosPorBanda(eventos: dict):
             diccionarioEventos[evento["idBanda"]]=1
     for idBanda, cantidad in diccionarioEventos.items():
         print(f"Banda {idBanda}: {cantidad} evento(s)")
+    return
 
 def resumenMontoEventosPorBanda(eventos: dict, bandas: dict):
     diccionarioEventos={}
@@ -33,6 +35,7 @@ def resumenMontoEventosPorBanda(eventos: dict, bandas: dict):
     for idBanda, banda in bandas.items():
         if idBanda in diccionarioEventos:
             print(f"Banda {idBanda}: ${diccionarioEventos[idBanda]*banda["tarifa30Min"]}")
+    return
 
 def topDuracionEventosDelMes(eventos: dict): # primero ordeno de menor a mayor y despues imprimo los ultimos 
     #use insertion sort transformando al diccionario de diccionarios en una lista de tuplas con list y con items
@@ -50,3 +53,4 @@ def topDuracionEventosDelMes(eventos: dict): # primero ordeno de menor a mayor y
     print(f"Evento {listaEventos[-1][0]}: {listaEventos[-1][1]["tramosContratados"]} tramos contratados.") #el primer indice es el de la lista, el segundo el de la tupla(id, valores), y el tercer indice para el valor de tramos contratados 
     print(f"Evento {listaEventos[-2][0]}: {listaEventos[-2][1]["tramosContratados"]} tramos contratados.")
     print(f"Evento {listaEventos[-3][0]}: {listaEventos[-3][1]["tramosContratados"]} tramos contratados.")
+    return
