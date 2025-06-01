@@ -227,7 +227,6 @@ def main():
                                    }
                     }}
 
-## Ilustrativo No sé como lo hace mateo <<<<<<<<<<<<<<<< BORRRAR CUANDO SE SOLUCIONE
     eventos = {}
     #-------------------------------------------------
     # Bloque de menú

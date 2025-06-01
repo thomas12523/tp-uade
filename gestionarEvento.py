@@ -21,7 +21,7 @@ def gestionarEvento(eventos, idBanda, idSalon):
     fechaHoraRegistro = time.strftime("%Y.%m.%d %H.%M.%S")
 
     datosEvento = {
-        'IdEvento': len(eventos) + 1,
+        'IdEvento': str(len(eventos) + 1),
         'idBanda': idBanda,
         'idSalon': idSalon,
         'FechaEvento': fechaEvento,
