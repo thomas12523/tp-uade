@@ -387,7 +387,7 @@ def main():
                     break # No sale del programa, sino que vuelve al menú anterior
                 
                 elif opcionSubmenu == "1":   # Opción 1 del submenú
-                    idEvento = ""
+                    
                     while True:
                         idBanda = input("Ingrese el ID de la Banda: ")
                         idSalon = input("Ingrese el ID del Salón: ")
@@ -397,7 +397,6 @@ def main():
                             break
                         else:
                             print("El ID de la Banda o del Salón no existe. Por favor, verifique los IDs ingresados.")
-                            input("Presione ENTER para volver a intentarlo.")
         
         elif opcionMenuPrincipal == "4":   # Opción 4 del menú principal
             while True:
