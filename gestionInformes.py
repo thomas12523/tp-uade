@@ -5,10 +5,10 @@ from datetime import datetime, date
 def listarEventosDelMes(eventos: dict, mes:int):
     print("Los eventos del mes son:")
     for id_evento, evento in eventos.items():
-        eventDate= datetime.strptime(evento["fecha"],"%Y-%m-%d %H:%M:%S")
+        eventDate= datetime.strptime(evento["fechaEvento"],"%Y.%m.%d")
         if eventDate.month==mes:
-            print("\n",f"Evento ID: {id_evento}")
-            print(f"   Fecha: {evento['fecha']}")
+            print("\n",f"Evento ID: {evento['idEvento']}")
+            print(f"   Fecha: {evento['fechaEvento']}")
             print(f"   Banda ID: {evento['idBanda']}")
             print(f"   Salón ID: {evento['idSalon']}")
             print(f"   Tramos contratados: {evento['tramosContratados']}")
@@ -34,7 +34,7 @@ def resumenMontoEventosPorBanda(eventos: dict, bandas: dict):
             diccionarioEventos[evento["idBanda"]]=evento["tramosContratados"]
     for idBanda, banda in bandas.items():
         if idBanda in diccionarioEventos:
-            print(f"Banda {idBanda}: ${diccionarioEventos[idBanda]*banda["tarifa30Min"]}")
+            print(f"Banda {idBanda}: ${diccionarioEventos[idBanda]*banda['tarifa30Min']}")
     return
 
 def topDuracionEventosDelMes(eventos: dict): # primero ordeno de menor a mayor y despues imprimo los ultimos 
@@ -50,7 +50,7 @@ def topDuracionEventosDelMes(eventos: dict): # primero ordeno de menor a mayor y
         listaEventos[j + 1] = (idActual, datosActuales)
         
     print("\nTop 3 de los eventos con mayor duración del mes:") # aca imprimo usando indice negativo los top 3
-    print(f"Evento {listaEventos[-1][0]}: {listaEventos[-1][1]["tramosContratados"]} tramos contratados.") #el primer indice es el de la lista, el segundo el de la tupla(id, valores), y el tercer indice para el valor de tramos contratados 
-    print(f"Evento {listaEventos[-2][0]}: {listaEventos[-2][1]["tramosContratados"]} tramos contratados.")
-    print(f"Evento {listaEventos[-3][0]}: {listaEventos[-3][1]["tramosContratados"]} tramos contratados.")
+    print(f"Evento {listaEventos[-1][1]['idEvento']}: {listaEventos[-1][1]['tramosContratados']} tramos contratados.") #el primer indice es el de la lista, el segundo el de la tupla(id, valores), y el tercer indice para el valor de tramos contratados 
+    print(f"Evento {listaEventos[-2][1]['idEvento']}: {listaEventos[-2][1]['tramosContratados']} tramos contratados.")
+    print(f"Evento {listaEventos[-3][1]['idEvento']}: {listaEventos[-3][1]['tramosContratados']} tramos contratados.")
     return

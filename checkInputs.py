@@ -4,7 +4,7 @@ def checkString(string):
     Input: string es del tipo String que representa la cadena a verificar.
     Output: Devuelve True si la cadena no está vacía o no es un espacio de relleno, False en caso contrario.
     """
-    if (string.isempty() or string==' '):
+    if (string =='' or string==' '):
         return False
     return True
 

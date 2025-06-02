@@ -11,21 +11,21 @@ def gestionarEvento(eventos, idBanda, idSalon):
     - idEvento: string con el ID del evento.
     - fechaEvento: string con la fecha del evento en formato AAAA.MM.DD.
     - tramosContratados: entero con la cantidad de tramos contratados.
-    - fechaHoraRegistro: string con la fecha y hora de registro del evento en formato AAAA.MM.DD HH.MM.SS.
+    - fechaHoraRegistro: string con la fecha y hora de registro del evento en formato AAAA.MM.DD HH:MM:SS.
     Retorna:
     - eventos: diccionario actualizado con el nuevo evento.
     """
     fechaEvento = input("Ingrese la fecha del evento (AAAA.MM.DD): ")
     tramosContratados = int(input("Ingrese la cantidad de tramos contratados: "))
 
-    fechaHoraRegistro = time.strftime("%Y.%m.%d %H.%M.%S")
+    fechaHoraRegistro = time.strftime("%Y.%m.%d %H:%M:%S")
 
     datosEvento = {
-        'IdEvento': str(len(eventos) + 1),
+        'idEvento': str(len(eventos) + 1),
         'idBanda': idBanda,
         'idSalon': idSalon,
-        'FechaEvento': fechaEvento,
-        'TramosContratados': tramosContratados
+        'fechaEvento': fechaEvento,
+        'tramosContratados': tramosContratados
     }
 
     eventos[fechaHoraRegistro] = datosEvento

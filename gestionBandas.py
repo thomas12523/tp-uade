@@ -1,11 +1,11 @@
 def agregarBanda(bandas,nombreBanda, email, tarifa30Min, telefono,generos, idBanda):
     bandas[idBanda] = {
         "activo": True,
-        "NombreBanda": nombreBanda,
-        "Email": email,
-        "Telefono": telefono,
-        "Tarifa30Min": tarifa30Min,
-        "Generos": {"genero1": generos[0],
+        "nombreBanda": nombreBanda,
+        "email": email,
+        "telefono": telefono,
+        "tarifa30Min": tarifa30Min,
+        "generos": {"genero1": generos[0],
                     "genero2": generos[1]}
     }
     return bandas
@@ -14,11 +14,11 @@ def agregarBanda(bandas,nombreBanda, email, tarifa30Min, telefono,generos, idBan
 def modificarBanda(bandas,nombreBanda, email, tarifa30Min, telefono,generos, idBanda):
     
     bandas[idBanda] = {
-        "NombreBanda": nombreBanda,
-        "Email": email,
-        "Tarifa30Min": tarifa30Min,
-        "Telefono":telefono,
-        "Generos": {"genero1": generos[0],
+        "nombreBanda": nombreBanda,
+        "email": email,
+        "tarifa30Min": tarifa30Min,
+        "telefono":telefono,
+        "generos": {"genero1": generos[0],
                     "genero2": generos[1]}
     }
 
@@ -32,5 +32,5 @@ def inactivarBanda(bandas,idBanda):
 def listarBandasActivas(bandas):
     for banda in bandas:
         if bandas[banda]["activo"] == True:
-            print(f"IdBanda: {banda}")
+            print(f"idBanda: {banda}")
             print(bandas[banda])
