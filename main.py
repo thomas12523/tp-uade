@@ -691,13 +691,13 @@ def main():
                     listarEventosDelMes(eventos,mes)
                     
                 elif opcionSubmenu == "2":   # Opción 2 del submenú
-                    resumenCantidadEventosPorBanda(eventos)
+                    resumenCantidadEventosPorBanda(eventos, bandas)
                 
                 elif opcionSubmenu == "3":   # Opción 3 del submenú
                     resumenMontoEventosPorBanda(eventos, bandas)
                 
                 elif opcionSubmenu == "4":   # Opción 4 del submenú
-                    topDuracionEventosDelMes(eventos)
+                    topDuracionEventosDelMes(eventos, mes)
 
                 input("\nPresione ENTER para volver al menú.") # Pausa entre opciones
                 print("\n\n")
