@@ -1,3 +1,5 @@
+from re import fullmatch
+
 def checkString(string):
     """
     Descripción: Verifica si una cadena de texto no está vacía o tiene un espacio de relleno.
@@ -52,16 +54,5 @@ def checkEmail(email):
     Input: email es del tipo String que representa el correo electrónico a verificar.
     Output: Devuelve True si la cadena es un correo electrónico válido, False en caso contrario.
     """
-    if '@' not in email or '.' not in email:
-        return False
-    if email.count('@') != 1:
-        return False
-    
-    email = email.split('@')
-    if len(email[0]) < 1 or len(email[1]) < 3:
-        return False
-    if email[1][-4:]!='.com' and email[1][-4:]!='.org':
-        return False
-    if email[1][:-4] == '' or email[1][:-4].isnumeric():
-        return False
-    return True
+    patron = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.(com|org)$'
+    return fullmatch(patron, email) is not None
