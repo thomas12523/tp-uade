@@ -1,6 +1,6 @@
 from datetime import datetime, date
 
-def listarEventosDelMes(eventos: dict, mes:int):
+def listarEventosDelMes(eventos: dict):
     """
     Lista todos los eventos programados para un mes específico.
     
@@ -22,7 +22,7 @@ def listarEventosDelMes(eventos: dict, mes:int):
     for id_evento, evento in eventos.items():
         eventDate= datetime.strptime(evento["fechaEvento"],"%Y.%m.%d")
 
-        if eventDate.month == mes:
+        if eventDate.month == datetime.now().month:
             fecha_hora = id_evento
             idEvento = evento['idEvento']
             idBanda = evento['idBanda']
@@ -122,7 +122,7 @@ def resumenMontoEventosPorBanda(eventos: dict, bandas: dict):
 
     return
 
-def topDuracionEventosDelMes(eventos: dict, mes:int):
+def topDuracionEventosDelMes(eventos: dict):
     """
     Muestra los 3 eventos con mayor duración de un mes específico.
     
@@ -147,7 +147,7 @@ def topDuracionEventosDelMes(eventos: dict, mes:int):
     for id_evento, evento in eventos.items():
         eventDate= datetime.strptime(evento["fechaEvento"],"%Y.%m.%d")
 
-        if eventDate.month == mes:
+        if eventDate.month == datetime.now().month:
             eventosDelMes[id_evento]=evento
         
     listaEventos = list(eventosDelMes.items())

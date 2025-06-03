@@ -167,22 +167,6 @@ def getInputBanda(case):
 
     return nombreBanda, email, telefono,tarifa30Min, generos
 
-def getInputMes():
-    """
-    Descripción: Verifica si un mes es válido.
-    Input: mes es del tipo int que representa el mes a verificar (1-12).
-    Output: Devuelve el mes si es válido, solicita al usuario que ingrese un mes válido en caso contrario.
-    """
-    while True:
-        
-        mes = input("Eligir un mes: ")
-        if mes.isdigit() and 1 <= int(mes) <= 12:
-            mes = int(mes)
-            break
-        else:
-            print("Mes inválido. Debe ser un número entre 1 y 12.") 
-    
-    return mes
 #----------------------------------------------------------------------------------------------
 # CUERPO PRINCIPAL
 #----------------------------------------------------------------------------------------------
@@ -687,8 +671,7 @@ def main():
                     break
       
                 elif opcionSubmenu == "1": # Opción 1 del submenú
-                    mes = getInputMes()
-                    listarEventosDelMes(eventos,mes)
+                    listarEventosDelMes(eventos)
                     
                 elif opcionSubmenu == "2":   # Opción 2 del submenú
                     resumenCantidadEventosPorBanda(eventos, bandas)
@@ -697,7 +680,7 @@ def main():
                     resumenMontoEventosPorBanda(eventos, bandas)
                 
                 elif opcionSubmenu == "4":   # Opción 4 del submenú
-                    topDuracionEventosDelMes(eventos, mes)
+                    topDuracionEventosDelMes(eventos)
 
                 input("\nPresione ENTER para volver al menú.") # Pausa entre opciones
                 print("\n\n")
