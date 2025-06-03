@@ -14,7 +14,7 @@ Pendientes:
 # MÓDULOS
 #----------------------------------------------------------------------------------------------
 from gestionSalones import agregarSalon, modificarSalon, inactivarSalon, listarSalonesActivos
-from checkInputs import checkInt, checkTelefono, checkString, checkDireccion, checkEmail
+from checkInputs import checkInt, checkTelefono, checkString, checkDireccion, checkEmail, checkGenero
 from gestionBandas import agregarBanda, modificarBanda, inactivarBanda, listarBandasActivas
 from gestionInformes import listarEventosDelMes, resumenCantidadEventosPorBanda, topDuracionEventosDelMes, resumenMontoEventosPorBanda
 from gestionarEvento import gestionarEvento
@@ -157,7 +157,7 @@ def getInputBanda(case):
         generos = []
         for i in range(2):
             genero = input(f"Ingrese el {'' if case == 1 else 'nuevo '}genero {i+1}: ")
-            if checkString(genero):
+            if checkGenero(genero):
                 generos.append(genero)
             else:
                 print("Solo se permite caracteres no numericos. Intentelo de nuevo.")

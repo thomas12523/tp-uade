@@ -1,5 +1,3 @@
-from re import fullmatch
-
 def checkString(string):
     """
     Descripción: Verifica si una cadena de texto no está vacía o tiene un espacio de relleno.
@@ -9,6 +7,18 @@ def checkString(string):
     if (string =='' or string==' '):
         return False
     return True
+
+def checkGenero(cadena):
+    """
+    Descripción: Verifica si una cadena de texto contenga caracteres del alfabeto.
+    Input: string es del tipo String que representa la cadena a verificar.
+    Output: Devuelve True si la cadena esta compuesta por caracteres del alfabeto, False en caso contrario.
+    """
+    if not cadena:
+        return False
+
+    palabras = cadena.split()
+    return all(palabra.isalpha() for palabra in palabras)
 
 def checkDireccion(s):
     """
@@ -39,18 +49,6 @@ def checkInt(value):
     Output: Devuelve True si el valor es un número entero, False en caso contrario.
     """
     return value.isdigit()
-
-def checkString(value):
-    """
-    Descripción: Verifica si un valor es palabra con caracteres alfabéticos.
-    Input: value es del tipo String que representa el valor a verificar.
-    Output: Devuelve True si el valor esta formado por caracteres alfabéticos, False en caso contrario.
-    """
-    if not value:
-        return False  # Cadena vacía no es válida
-
-    palabras = value.split()
-    return all(palabra.isalpha() for palabra in palabras)
 
 def checkTelefono(string):
     """
