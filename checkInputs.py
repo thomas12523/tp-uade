@@ -40,6 +40,18 @@ def checkInt(value):
     """
     return value.isdigit()
 
+def checkString(value):
+    """
+    Descripción: Verifica si un valor es palabra con caracteres alfabéticos.
+    Input: value es del tipo String que representa el valor a verificar.
+    Output: Devuelve True si el valor esta formado por caracteres alfabéticos, False en caso contrario.
+    """
+    if not value:
+        return False  # Cadena vacía no es válida
+
+    palabras = value.split()
+    return all(palabra.isalpha() for palabra in palabras)
+
 def checkTelefono(string):
     """
     Descripción: Verifica si una cadena de texto es un número de teléfono válido.
