@@ -52,7 +52,7 @@ def checkInt(value):
     Input: value es del tipo String que representa el valor a verificar.
     Output: Devuelve True si el valor es un número entero, False en caso contrario.
     """
-    if re.findall(r'^[0-9]{11}$', value) == []:
+    if re.findall(r'^[0-9]+$', value) == []:
         return False
     return value.isdigit()
 

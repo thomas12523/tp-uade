@@ -22,13 +22,18 @@ import json
 #----------------------------------------------------------------------------------------------
 # FUNCIONES
 #----------------------------------------------------------------------------------------------
-def gestorIdSalon(case, salones):
+def gestorIdSalon(case):
     """
     Descripción: Gestiona el ID del salón según el caso, caso 1 es para un nuevo salón, caso 2 para modificar un salon, caso 3 para inactivarlo.
     Input: case es del tipo int y salones es un diccionario con los salones existentes.
     Output: IdSalon (str): ID del salón ingresado por el usuario.
     
     """
+    # Abre el archivo salones.json y carga su contenido en un diccionario.
+    _salones = open("salones.json", "r", encoding="utf-8")
+    salones = json.load(_salones)
+    _salones.close()
+
     if case == 1:
         while True:
             IdSalon = input("Ingrese el ID del salón: ")
@@ -287,19 +292,19 @@ def main():
                 
                 elif opcionSubmenu == "1":   # Opción 1 del submenú
                     nombreSalon, ubicacion, capacidad, telefonos = getInputSalon(1)
-                    IdSalon = gestorIdSalon(1, salones)
-                    salones = agregarSalon(nombreSalon, ubicacion, capacidad, telefonos, IdSalon)
-                    print(f"Se ha creado el salón satisfactoriamente.")
+                    idSalon = gestorIdSalon(1)
+                    agregarSalon(nombreSalon, ubicacion, capacidad, telefonos, idSalon)
+                    print(f"Se ha creado el salón con ID {idSalon} satisfactoriamente.")
                     
                 elif opcionSubmenu == "2": # Opción 2 del submenú
                     nombreSalon, ubicacion, capacidad, telefonos = getInputSalon(2)
-                    idSalon = gestorIdSalon(2, salones)
-                    salones = modificarSalon(nombreSalon, ubicacion, capacidad, telefonos, IdSalon)
-                    print(f"Se ha modificado el salón satisfactoriamente.")
+                    idSalon = gestorIdSalon(2)
+                    modificarSalon(nombreSalon, ubicacion, capacidad, telefonos, idSalon)
+                    print(f"Se ha modificado el salón con ID {idSalon} satisfactoriamente.")
                 
                 elif opcionSubmenu == "3": # Opción 3 del submenú
-                    idSalon = gestorIdSalon(3,salones)   
-                    salones = inactivarSalon(idSalon)
+                    idSalon = gestorIdSalon(3)   
+                    inactivarSalon(idSalon)
                     print(f"Se ha inactivado el salón con ID {idSalon} satisfactoriamente.")
                 
                 elif opcionSubmenu == "4":   # Opción 4 del submenú
