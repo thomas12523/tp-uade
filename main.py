@@ -14,7 +14,7 @@ Pendientes:
 # MÓDULOS
 #----------------------------------------------------------------------------------------------
 from gestionSalones import agregarSalon, modificarSalon, inactivarSalon, listarSalonesActivos
-from checkInputs import checkInt, checkTelefono, checkString, checkDireccion, checkEmail
+from checkInputs import checkInt, checkTelefono, checkString, checkDireccion, checkEmail, checkGenero
 from gestionBandas import agregarBanda, modificarBanda, inactivarBanda, listarBandasActivas
 from gestionInformes import listarEventosDelMes, resumenCantidadEventosPorBanda, topDuracionEventosDelMes, resumenMontoEventosPorBanda
 from gestionarEvento import gestionarEvento
@@ -49,8 +49,7 @@ def gestorIdSalon(case, salones):
             if IdSalon not in salones:
                 print("El ID del salón no existe. Intente con otro ID.")
             else:
-                break
-            return IdSalon
+                return IdSalon
     
 def getInputSalon(case):
     """
@@ -59,19 +58,19 @@ def getInputSalon(case):
     Output: tupla (nombreSalon, ubicacion, capacidad, telefonos)
     """
     while True:
-        nombreSalon = input(f"Ingrese el {"" if case == 1 else "nuevo "}nombre del salón: ")
+        nombreSalon = input(f"Ingrese el {'' if case == 1 else 'nuevo '}nombre del salón: ")
         if checkString(nombreSalon):
             break
         print("El nombre del salón no puede estar vacío. Intentelo de nuevo.")
 
     while True:
-        ubicacion = input(f"Ingrese la {"" if case == 1 else "nueva "}ubicación del salón: ")
+        ubicacion = input(f"Ingrese la {'' if case == 1 else 'nueva '}ubicación del salón: ")
         if checkDireccion(ubicacion):
             break
         print("Escriba correctamente, dirección espacio numero.")
 
     while True:
-        capacidad = input(f"Ingrese la {"" if case == 1 else "nueva "}capacidad del salón: ")
+        capacidad = input(f"Ingrese la {'' if case == 1 else 'nueva '}capacidad del salón: ")
         if checkInt(capacidad):
             capacidad = int(capacidad)
             if capacidad > 0:
@@ -83,7 +82,7 @@ def getInputSalon(case):
     while True:
         telefonos = []
         for i in range(3):
-            telefono = input(f"Ingrese el {"" if case == 1 else "nuevo "}teléfono {i+1} (10 dígitos): ")
+            telefono = input(f"Ingrese el {'' if case == 1 else 'nuevo '}teléfono {i+1} (10 dígitos): ")
             if checkTelefono(telefono):
                 telefonos.append(telefono)
             else:
@@ -103,26 +102,25 @@ def gestorIdBanda(case, bandas):
     """
     if case == 1:
         while True:
-            idBanda = input("Ingrese el ID del banda: ")
+            idBanda = input("Ingrese el ID de la banda: ")
             if idBanda in bandas:
                 print("El ID del banda ya existe. Intente con otro ID.")
             else:
                 return idBanda
     elif case == 2:
         while True:
-            idBanda = input("Ingrese el ID del banda a modificar: ")
+            idBanda = input("Ingrese el ID de la banda a modificar: ")
             if idBanda not in bandas:
                 print("El ID del banda no existe. Intente con otro ID.")
             else:
                 return idBanda
     elif case == 3:
         while True:
-            idBanda = input("Ingrese el ID del banda a inactivar: ")
+            idBanda = input("Ingrese el ID de la banda a inactivar: ")
             if idBanda not in bandas:
                 print("El ID del banda no existe. Intente con otro ID.")
             else:
-                break
-            return idBanda
+                return idBanda
     
 def getInputBanda(case):
     """
@@ -131,26 +129,26 @@ def getInputBanda(case):
     Output: tupla (nombreSalon, ubicacion, capacidad, telefonos)
     """
     while True:
-        nombreBanda = input(f"Ingrese el {"" if case == 1 else "nuevo "}nombre del banda: ")
+        nombreBanda = input(f"Ingrese el {'' if case == 1 else 'nuevo '}nombre de la banda: ")
         if checkString(nombreBanda):
             break
         print("El nombre del banda no puede estar vacío. Intentelo de nuevo.")
 
     while True:
-        email = input(f"Ingrese la {"" if case == 1 else "nueva "}ubicación del banda: ")
+        email = input(f"Ingrese el {'' if case == 1 else 'nueva '}email del la banda: ")
         if checkEmail(email):
             break
-        print("Escriba correctamente, dirección espacio numero.")
+        print("Escriba correctamente, test@test.com o test@test.org")
 
     while True:
-        telefono = input(f"Ingrese la {"" if case == 1 else "nueva "}capacidad del banda: ")
+        telefono = input(f"Ingrese el {'' if case == 1 else 'nuevo '}telefono de la banda: ")
         if checkTelefono(telefono):
             break
         else:
             print("Introducir un telefono valido.")
 
     while True:
-        tarifa30Min = input(f"Ingrese la {"" if case == 1 else "nueva "}tarifa de 30 minutos de la banda: ")
+        tarifa30Min = input(f"Ingrese la {'' if case == 1 else 'nueva '}tarifa de 30 minutos de la banda: ")
         if tarifa30Min.isdigit() and int(tarifa30Min) > 0:
             break
         else:
@@ -159,8 +157,8 @@ def getInputBanda(case):
     while True:
         generos = []
         for i in range(2):
-            genero = input(f"Ingrese el {"" if case == 1 else "nuevo "}genero {i+1}: ")
-            if checkString(telefono):
+            genero = input(f"Ingrese el {'' if case == 1 else 'nuevo '}genero {i+1}: ")
+            if checkGenero(genero):
                 generos.append(genero)
             else:
                 print("Solo se permite caracteres no numericos. Intentelo de nuevo.")
@@ -170,22 +168,6 @@ def getInputBanda(case):
 
     return nombreBanda, email, telefono,tarifa30Min, generos
 
-def getInputMes():
-    """
-    Descripción: Verifica si un mes es válido.
-    Input: mes es del tipo int que representa el mes a verificar (1-12).
-    Output: Devuelve el mes si es válido, solicita al usuario que ingrese un mes válido en caso contrario.
-    """
-    while True:
-        
-        mes = input("Eligir un mes: ")
-        if mes.isdigit() and 1 <= int(mes) <= 12:
-            mes = int(mes)
-            break
-        else:
-            print("Mes inválido. Debe ser un número entre 1 y 12.") 
-    
-    return mes
 #----------------------------------------------------------------------------------------------
 # CUERPO PRINCIPAL
 #----------------------------------------------------------------------------------------------
@@ -359,6 +341,9 @@ def main():
                         if idBanda in bandas and idSalon in salones:
                             eventos = gestionarEvento(idBanda, idSalon)
                             print(f"Se ha registrado el evento satisfactoriamente.")
+                            for evento in eventos:
+                                print(f"FechaIngreso: {evento}")
+                                print(eventos[evento])
                             break
                         else:
                             print("El ID de la Banda o del Salón no existe. Por favor, verifique los IDs ingresados.")
@@ -392,10 +377,10 @@ def main():
       
                 elif opcionSubmenu == "1": # Opción 1 del submenú
                     mes = getInputMes()
-                    listarEventosDelMes(mes)
+                    listarEventosDelMes(eventos,mes)
                     
                 elif opcionSubmenu == "2":   # Opción 2 del submenú
-                    resumenCantidadEventosPorBanda()
+                    resumenCantidadEventosPorBanda(eventos)
                 
                 elif opcionSubmenu == "3":   # Opción 3 del submenú
                     resumenMontoEventosPorBanda(bandas)

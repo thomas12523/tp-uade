@@ -4,9 +4,21 @@ def checkString(string):
     Input: string es del tipo String que representa la cadena a verificar.
     Output: Devuelve True si la cadena no está vacía o no es un espacio de relleno, False en caso contrario.
     """
-    if (string.isempty() or string==' '):
+    if (string =='' or string==' '):
         return False
     return True
+
+def checkGenero(cadena):
+    """
+    Descripción: Verifica si una cadena de texto contenga caracteres del alfabeto.
+    Input: string es del tipo String que representa la cadena a verificar.
+    Output: Devuelve True si la cadena esta compuesta por caracteres del alfabeto, False en caso contrario.
+    """
+    if not cadena:
+        return False
+
+    palabras = cadena.split()
+    return all(palabra.isalpha() for palabra in palabras)
 
 def checkDireccion(s):
     """
