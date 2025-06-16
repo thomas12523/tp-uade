@@ -1,0 +1,24 @@
+{
+    "1": {
+        "activo": true,
+        "NombreSalon": "chiquimundo",
+        "Ubicacion": "san martin",
+        "Capacidad": 30,
+        "Telefonos": {
+            "Telefono1": "1",
+            "Telefono2": "2",
+            "Telefono3": "3"
+        }
+    },
+    "2": {
+        "activo": false,
+        "NombreSalon": "pepe",
+        "Ubicacion": "pepe",
+        "Capacidad": 30,
+        "Telefonos": {
+            "Telefono1": "1",
+            "Telefono2": "2",
+            "Telefono3": "3"
+        }
+    }
+}

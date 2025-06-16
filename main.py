@@ -18,6 +18,7 @@ from checkInputs import checkInt, checkTelefono, checkString, checkDireccion, ch
 from gestionBandas import agregarBanda, modificarBanda, inactivarBanda, listarBandasActivas
 from gestionInformes import listarEventosDelMes, resumenCantidadEventosPorBanda, topDuracionEventosDelMes, resumenMontoEventosPorBanda
 from gestionarEvento import gestionarEvento
+import json
 #----------------------------------------------------------------------------------------------
 # FUNCIONES
 #----------------------------------------------------------------------------------------------
@@ -192,42 +193,7 @@ def main():
     #-------------------------------------------------
     # Inicialización de variables
     #----------------------------------------------------------------------------------------------
-    salones =   {'1':{"activo": True,
-                     "NombreSalon": "chiquimundo",
-                     "Ubicacion": "san martin",
-                     "Capacidad" : 30,
-                     "Telefonos": {"Telefono1": "1",
-                                   "Telefono2": "2",
-                                   "Telefono3": "3"
-                                   }
-                    },
-                '2':{"activo": False,
-                     "NombreSalon": "pepe",
-                     "Ubicacion": "pepe",
-                     "Capacidad" : 30,
-                     "Telefonos": {"Telefono1": "1",
-                                   "Telefono2": "2",
-                                   "Telefono3": "3"
-                                   }
-                    }}
-    bandas =   {'1':{"activo": True,
-                     "NombreBanda": "soda estereo",
-                     "Email": "nolose@hotmail.com",
-                     "Tarifa30Min" : 40000,
-                     "Generos": {"Genero1": "rock",
-                                   "Genero2": "jazz",
-                                   }
-                    },
-                '2':{"activo": False,
-                     "NombreBanda": "soda",
-                     "Email": "lose@hotmail.com",
-                     "Capacidad" : 20000,
-                     "Generos": {"Genero1": "pop",
-                                   "Genero2": "metal",
-                                   }
-                    }}
-
-    eventos = {}
+    
     #-------------------------------------------------
     # Bloque de menú
     #----------------------------------------------------------------------------------------------
@@ -288,23 +254,23 @@ def main():
                 elif opcionSubmenu == "1":   # Opción 1 del submenú
                     idBanda = gestorIdBanda(1, bandas)
                     nombreBanda, email, telefono,tarifa30Min, generos = getInputBanda(1)
-                    bandas = agregarBanda(bandas,nombreBanda, email, tarifa30Min, telefono,generos, idBanda)
+                    bandas = agregarBanda(nombreBanda, email, tarifa30Min, telefono,generos, idBanda)
                     print(f"Se ha ingresado la banda satisfactoriamente.")
                     
                 elif opcionSubmenu == "2":   # Opción 2 del submenú
                     idBanda = gestorIdBanda(2, bandas)
                     nombreBanda, email, telefono,tarifa30Min, generos = getInputBanda(2)
-                    bandas = modificarBanda(bandas,nombreBanda, email, tarifa30Min, telefono,generos, idBanda)
+                    bandas = modificarBanda(nombreBanda, email, tarifa30Min, telefono,generos, idBanda)
                     print(f"Se ha modificado la banda satisfactoriamente.")
                 
                 elif opcionSubmenu == "3":   # Opción 3 del submenú
                     idBanda = gestorIdBanda(3, bandas)
-                    bandas = inactivarBanda(bandas,idBanda)
+                    bandas = inactivarBanda(idBanda)
                     print(f"Se ha inactivado la banda con ID {idBanda} satisfactoriamente.")
                 
                 elif opcionSubmenu == "4":   # Opción 4 del submenú
                     print("Listado de bandas activas:")
-                    listarBandasActivas(bandas)
+                    listarBandasActivas()
 
                 input("\nPresione ENTER para volver al menú.") # Pausa entre opciones
                 print("\n\n")
@@ -340,23 +306,23 @@ def main():
                 elif opcionSubmenu == "1":   # Opción 1 del submenú
                     nombreSalon, ubicacion, capacidad, telefonos = getInputSalon(1)
                     IdSalon = gestorIdSalon(1, salones)
-                    salones = agregarSalon(salones,nombreSalon, ubicacion, capacidad, telefonos, IdSalon)
+                    salones = agregarSalon(nombreSalon, ubicacion, capacidad, telefonos, IdSalon)
                     print(f"Se ha creado el salón satisfactoriamente.")
                     
                 elif opcionSubmenu == "2": # Opción 2 del submenú
                     nombreSalon, ubicacion, capacidad, telefonos = getInputSalon(2)
                     idSalon = gestorIdSalon(2, salones)
-                    salones = modificarSalon(salones,nombreSalon, ubicacion, capacidad, telefonos, IdSalon)
+                    salones = modificarSalon(nombreSalon, ubicacion, capacidad, telefonos, IdSalon)
                     print(f"Se ha modificado el salón satisfactoriamente.")
                 
                 elif opcionSubmenu == "3": # Opción 3 del submenú
                     idSalon = gestorIdSalon(3,salones)   
-                    salones = inactivarSalon(salones,idSalon)
+                    salones = inactivarSalon(idSalon)
                     print(f"Se ha inactivado el salón con ID {idSalon} satisfactoriamente.")
                 
                 elif opcionSubmenu == "4":   # Opción 4 del submenú
                     print("Listado de salones activos:")
-                    listarSalonesActivos(salones)
+                    listarSalonesActivos()
 
                 input("\nPresione ENTER para volver al menú.") # Pausa entre opciones
                 print("\n\n")
@@ -391,7 +357,7 @@ def main():
                         idBanda = input("Ingrese el ID de la Banda: ")
                         idSalon = input("Ingrese el ID del Salón: ")
                         if idBanda in bandas and idSalon in salones:
-                            eventos = gestionarEvento(eventos, idBanda, idSalon)
+                            eventos = gestionarEvento(idBanda, idSalon)
                             print(f"Se ha registrado el evento satisfactoriamente.")
                             break
                         else:
@@ -426,16 +392,16 @@ def main():
       
                 elif opcionSubmenu == "1": # Opción 1 del submenú
                     mes = getInputMes()
-                    listarEventosDelMes(eventos,mes)
+                    listarEventosDelMes(mes)
                     
                 elif opcionSubmenu == "2":   # Opción 2 del submenú
-                    resumenCantidadEventosPorBanda(eventos)
+                    resumenCantidadEventosPorBanda()
                 
                 elif opcionSubmenu == "3":   # Opción 3 del submenú
-                    resumenMontoEventosPorBanda(eventos, bandas)
+                    resumenMontoEventosPorBanda(bandas)
                 
                 elif opcionSubmenu == "4":   # Opción 4 del submenú
-                    topDuracionEventosDelMes(eventos)
+                    topDuracionEventosDelMes()
 
                 input("\nPresione ENTER para volver al menú.") # Pausa entre opciones
                 print("\n\n")

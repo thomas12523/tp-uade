@@ -1,0 +1,22 @@
+{
+    "1": {
+        "activo": true,
+        "NombreBanda": "soda estereo",
+        "Email": "nolose@hotmail.com",
+        "Tarifa30Min": 40000,
+        "Generos": {
+            "Genero1": "rock",
+            "Genero2": "jazz"
+        }
+    },
+    "2": {
+        "activo": false,
+        "NombreBanda": "soda",
+        "Email": "lose@hotmail.com",
+        "Capacidad": 20000,
+        "Generos": {
+            "Genero1": "pop",
+            "Genero2": "metal"
+        }
+    }
+}
