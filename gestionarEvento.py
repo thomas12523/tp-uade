@@ -1,21 +1,21 @@
 import time
 import json
 
-def cargarEventos(nombre_archivo):
+def cargarEventos(nombreArchivo):
     """
     Carga los eventos desde un archivo JSON.
     Si el archivo no existe o hay error, retorna un diccionario vacío.
     """
     try:
-        archivo = open(nombre_archivo, 'r', encoding='utf-8')
+        archivo = open(nombreArchivo, 'r', encoding='utf-8')
         contenido = archivo.read()
         archivo.close()
         return json.loads(contenido)
-    except (FileNotFoundError, OSError, json.JSONDecodeError) as detalle:
+    except (FileNotFoundError, OSError) as detalle:
         print("Error al intentar abrir archivo(s):", detalle)
         return {}
 
-def guardarEventos(nombre_archivo, eventos):
+def guardarEventos(nombreArchivo, eventos):
     """
     Guarda los eventos en un archivo JSON.
     """
@@ -24,7 +24,7 @@ def guardarEventos(nombre_archivo, eventos):
         contenido = json.dumps(eventos, ensure_ascii=False, indent=4)
         archivo.write(contenido)
         archivo.close()
-    except OSError as detalle:
+    except (FileNotFoundError, OSError) as detalle:
         print("Error al intentar abrir archivo(s):", detalle)
 
 def gestionarEvento(eventos, idBanda, idSalon):
