@@ -1,7 +1,6 @@
-from datetime import datetime
-import json
+from datetime import datetime, date
 
-def listarEventosDelMes(eventosPath: str):
+def listarEventosDelMes(eventos: dict):
     """
     Lista todos los eventos programados para un mes específico.
     
@@ -20,18 +19,9 @@ def listarEventosDelMes(eventosPath: str):
     print(f"{'Fecha/Hora':<20} {'idEvento':<10} {'idBanda':<10} {'idSalon':<10} {'fechaEvento':<15} {'tramosContratados':<18}")
     print('-' * 85)
 
-    try:
-        eventos=open(eventosPath,mode="r", encoding="utf-8")
-        eventosJson=json.load(eventos)
-        eventos.close()
-    except (FileNotFoundError, OSError, json.JSONDecodeError) as detalle:
-        print("Error al intentar abrir archivo(s):", detalle)
-        return {}
-     
-    for id_evento, evento in eventosJson.items():
-
+    for id_evento, evento in eventos.items():
         eventDate= datetime.strptime(evento["fechaEvento"],"%Y.%m.%d")
-            
+
         if eventDate.month == datetime.now().month:
             fecha_hora = id_evento
             idEvento = evento['idEvento']
@@ -39,12 +29,11 @@ def listarEventosDelMes(eventosPath: str):
             idSalon = evento['idSalon']
             fechaEvento = evento['fechaEvento']
             tramosContratados = evento['tramosContratados']
-
             print(f"{fecha_hora:<20} {idEvento:<10} {idBanda:<10} {idSalon:<10} {fechaEvento:<15} {tramosContratados:<18}")
 
     return
 
-def resumenCantidadEventosPorBanda(eventosPath: str, bandasPath: str):
+def resumenCantidadEventosPorBanda(eventos: dict, bandas: dict):
     """
     Genera un resumen de la cantidad total de eventos mensuales por banda.
     
@@ -73,22 +62,10 @@ def resumenCantidadEventosPorBanda(eventosPath: str, bandasPath: str):
         print(f"{mes:>8}", end="")
     print()
     print("-" * 150)
-    
-    try: 
-        bandas=open(bandasPath,mode="r", encoding="utf-8")
-        bandasJson=json.load(bandas)
-        bandas.close()
 
-        eventos=open(eventosPath,mode="r", encoding="utf-8")
-        eventosJson=json.load(eventos)
-        eventos.close()
-    except (FileNotFoundError, OSError, json.JSONDecodeError) as detalle:
-        print("Error al intentar abrir archivo(s):", detalle)
-        return {}
-    
-    for idBanda, banda in bandasJson.items():
+    for idBanda, banda in bandas.items():
         recuentoEventos = {month: 0 for month in range(1, 13)}
-        for idEvento, evento in eventosJson.items():
+        for idEvento, evento in eventos.items():
             if str(idBanda)==evento["idBanda"]:
                 eventDate= datetime.strptime(evento["fechaEvento"],"%Y.%m.%d")
                 recuentoEventos[eventDate.month]+=1
@@ -100,7 +77,7 @@ def resumenCantidadEventosPorBanda(eventosPath: str, bandasPath: str):
 
     return
 
-def resumenMontoEventosPorBanda(eventosPath: str, bandasPath: str):
+def resumenMontoEventosPorBanda(eventos: dict, bandas: dict):
     """
     Calcula y muestra el monto total mensual generado por cada banda.
     
@@ -130,21 +107,9 @@ def resumenMontoEventosPorBanda(eventosPath: str, bandasPath: str):
     print()
     print("-" * 150)
 
-    try:
-        bandas=open(bandasPath,mode="r", encoding="utf-8")
-        bandasJson=json.load(bandas)
-        bandas.close()
-
-        eventos=open(eventosPath,mode="r", encoding="utf-8")
-        eventosJson=json.load(eventos)
-        eventos.close()
-    except (FileNotFoundError, OSError, json.JSONDecodeError) as detalle:
-        print("Error al intentar abrir archivo(s):", detalle)
-        return {}
-    
-    for idBanda, banda in bandasJson.items():
+    for idBanda, banda in bandas.items():
         recuentoEventos = {month: 0 for month in range(1, 13)}
-        for idEvento, evento in eventosJson.items():
+        for idEvento, evento in eventos.items():
             if str(idBanda) == evento["idBanda"]:
                 eventDate = datetime.strptime(evento["fechaEvento"], "%Y.%m.%d")
                 recuentoEventos[eventDate.month] += evento["tramosContratados"] * banda["tarifa30Min"]
@@ -157,10 +122,7 @@ def resumenMontoEventosPorBanda(eventosPath: str, bandasPath: str):
 
     return
 
-def claveOrden(evento):
-    return evento[1]['tramosContratados']
-
-def topDuracionEventosDelMes(eventosPath: str):
+def topDuracionEventosDelMes(eventos: dict):
     """
     Muestra los 3 eventos con mayor duración de un mes específico.
     
@@ -180,33 +142,34 @@ def topDuracionEventosDelMes(eventosPath: str):
         La función contiene un error en el algoritmo de ordenamiento 
         (variable 'j' no está definida correctamente).
     """
-    try:
-        eventos=open(eventosPath,mode="r", encoding="utf-8")
-        eventosJson=json.load(eventos)
-        eventos.close()
-    except (FileNotFoundError, OSError, json.JSONDecodeError) as detalle:
-        print("Error al intentar abrir archivo(s):", detalle)
-        return {}
-    
-    eventosDelMes={}
 
-    for id_evento, evento in eventosJson.items():
+    eventosDelMes={}
+    for id_evento, evento in eventos.items():
         eventDate= datetime.strptime(evento["fechaEvento"],"%Y.%m.%d")
 
         if eventDate.month == datetime.now().month:
             eventosDelMes[id_evento]=evento
+        
+    listaEventos = list(eventosDelMes.items())
     
-    eventosOrdenados=list(sorted(eventosDelMes.items(), key=claveOrden))
+    for i in range(1,len(listaEventos)):
+        idActual, datosActuales = listaEventos[i]
+        
+        while j >= 0 and listaEventos[j][1]["tramosContratados"] > datosActuales["tramosContratados"]:
+            listaEventos[j + 1] = listaEventos[j]
+            j -= 1
+            
+        listaEventos[j + 1] = (idActual, datosActuales)
         
     print("-" * 150)
     print("TOP 3 EVENTOS CON MAYOR DURACION DEL MES")
     print("-" * 150)
     print("EVENTOS")
     print("-" * 150)
-    if len(eventosOrdenados) >=3:
-        print(f"Evento {eventosOrdenados[-1][1]['idEvento']} {eventosOrdenados[-1][1]['tramosContratados']:>8} tramos contratados.")
-        print(f"Evento {eventosOrdenados[-2][1]['idEvento']} {eventosOrdenados[-2][1]['tramosContratados']:>8} tramos contratados.")
-        print(f"Evento {eventosOrdenados[-3][1]['idEvento']} {eventosOrdenados[-3][1]['tramosContratados']:>8} tramos contratados.")
+    if len(listaEventos) >=3:
+        print(f"Evento {listaEventos[-1][1]['idEvento']} {listaEventos[-1][1]['tramosContratados']:>8} tramos contratados.")
+        print(f"Evento {listaEventos[-2][1]['idEvento']} {listaEventos[-2][1]['tramosContratados']:>8} tramos contratados.")
+        print(f"Evento {listaEventos[-3][1]['idEvento']} {listaEventos[-3][1]['tramosContratados']:>8} tramos contratados.")
     else: 
         print("No hay sufientes eventos en el mes para generar un top.")
     return
