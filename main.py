@@ -98,13 +98,16 @@ def getInputSalon(case):
 
     return nombreSalon, ubicacion, capacidad, telefonos
 
-def gestorIdBanda(case, bandas):
+def gestorIdBanda(case):
     """
     Descripción: Gestiona el ID del banda según el caso, caso 1 es para un nuevo banda, caso 2 para modificar un banda, caso 3 para inactivarlo.
     Input: case es del tipo int y bandas es un diccionario con los bandas existentes.
     Output: Idbanda (str): ID del banda ingresado por el usuario.
     
     """
+    archivo = open("bandas.json", "r", encoding="utf-8")
+    bandas = json.load(archivo)
+    archivo.close()
     if case == 1:
         while True:
             idBanda = input("Ingrese el ID de la banda: ")
@@ -126,7 +129,7 @@ def gestorIdBanda(case, bandas):
                 print("El ID del banda no existe. Intente con otro ID.")
             else:
                 return idBanda
-    
+
 def getInputBanda(case):
     """
     Descripción: Solicita los datos necesarios para agregar o modificar un salón. Si es case 1 entonces es para agregar un salón, si es case 2 entonces es para modificar un salón. Se utiliza un condicional para si es case 1 o 2, así se muestra el texto correspondiente. Además, se valida que los datos ingresados sean correctos.
