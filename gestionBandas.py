@@ -1,3 +1,5 @@
+import json
+
 def agregarBanda(bandas, nombreBanda, email, tarifa30Min, telefono, generos, idBanda):
     """
     Agrega una nueva banda al diccionario de bandas.
@@ -57,22 +59,33 @@ def modificarBanda(bandas, nombreBanda, email, tarifa30Min, telefono, generos, i
     return bandas
 
 
-def inactivarBanda(bandas, idBanda):
+def inactivarBanda(idBanda):
     """
-    Marca una banda como inactiva en el diccionario.
+    Marca una banda como inactiva en el archivo bandas.json.
 
     Parámetros:
-    - bandas (dict): Diccionario que contiene todas las bandas.
     - idBanda (str/int): Identificador único de la banda a inactivar.
-
-    Retorna:
-    - dict: Diccionario actualizado con la banda marcada como inactiva.
     """
+    try:
+        # Abre el archivo bandas.json y carga su contenido en un diccionario.
+        _bandas = open("bandas.json", "r", encoding="utf-8")
+        bandas = json.load(_bandas)
+        _bandas.close()
+    except (FileNotFoundError, OSError) as detalle:
+        print("Error al intentar abrir archivo(s):", detalle)
+
     bandas[idBanda]["activo"] = False
-    return bandas
+
+    try:
+        # Guarda el diccionario actualizado de bandas en el archivo bandas.json.
+        _bandas = open("bandas.json", "w", encoding="utf-8")
+        json.dump(bandas, _bandas, ensure_ascii=False, indent=4)
+        _bandas.close()
+    except (FileNotFoundError, OSError) as detalle:
+        print("Error al intentar abrir archivo(s):", detalle)
 
 
-def listarBandasActivas(bandas):
+def listarBandasActivas():
     """
     Imprime en consola todas las bandas que están activas.
 
@@ -82,7 +95,25 @@ def listarBandasActivas(bandas):
     Retorna:
     - None
     """
+    encontrados = False
+
+    try:
+        _bandas = open("bandas.json", "r", encoding="utf-8")
+        bandas = json.load(_bandas)
+        _bandas.close()
+    except (FileNotFoundError, OSError) as detalle:
+        print("Error al intentar abrir archivo(s):", detalle)
+
     for banda in bandas:
         if bandas[banda]["activo"] == True:
-            print(f"idBanda: {banda}")
-            print(bandas[banda])
+            encontrados = True
+            print("IdBanda: "      + banda)
+            print("NombreBanda: "  + bandas[banda]["NombreBanda"])
+            print("Email: "    + bandas[banda]["Email"])
+            print("Tarifa30Min: "    + str(bandas[banda]["Tarifa30Min"]))
+            print("Generos: "     + bandas[banda]["Generos"]["Genero1"]
+                                  + ", " + bandas[banda]["Generos"]["Genero2"])
+            print("-------------------------")
+
+    if not encontrados:
+        print("No hay bandas activas.")

@@ -103,7 +103,10 @@ def listarSalonesActivos():
     Lista los salones activos en el archivo salones.json.
     Retorna:
     - Imprime los salones activos en la consola.
+    - Si no hay salones activos, imprime un mensaje indicando que no hay salones activos.
     """
+    encontrados = False
+
     try:
         _salones = open("salones.json", "r", encoding="utf-8")
         salones = json.load(_salones)
@@ -113,5 +116,16 @@ def listarSalonesActivos():
 
     for salon in salones:
         if salones[salon]["activo"] == True:
-            print(f"IdSalon: {salon}")
-            print(salones[salon])
+            encontrados = True
+            print("IdSalon: "      + salon)
+            print("NombreSalon: "  + salones[salon]["nombreSalon"])
+            print("Ubicacion: "    + salones[salon]["ubicacion"])
+            print("Capacidad: "    + str(salones[salon]["capacidad"]))
+            t = salones[salon]["telefonos"]
+            print("telefonos: "     + salones[salon]["telefonos"]["telefono1"]
+                                  + ", " + salones[salon]["telefonos"]["telefono2"]
+                                  + ", " + salones[salon]["telefonos"]["telefono3"])
+            print("-------------------------")
+
+    if not encontrados:
+        print("No hay salones activos.")

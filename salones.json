@@ -119,5 +119,16 @@
             "telefono2": "1111111111",
             "telefono3": "1111111111"
         }
+    },
+    "12": {
+        "activo": true,
+        "nombreSalon": "test",
+        "ubicacion": "test 123",
+        "capacidad": 3,
+        "telefonos": {
+            "telefono1": "1234567890",
+            "telefono2": "1111111111",
+            "telefono3": "1111111111"
+        }
     }
 }

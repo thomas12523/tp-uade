@@ -56,43 +56,83 @@ def gestorIdSalon(case):
             else:
                 return IdSalon
     
-def getInputSalon(case):
+def getInputSalon(case, datos=None):
     """
     Descripción: Solicita los datos necesarios para agregar o modificar un salón. Si es case 1 entonces es para agregar un salón, si es case 2 entonces es para modificar un salón. Se utiliza un condicional para si es case 1 o 2, así se muestra el texto correspondiente. Además, se valida que los datos ingresados sean correctos.
-    Input: case es un entero que indica si es para agregar (1) o modificar (2) un salón.
+    Input: case es un entero que indica si es para agregar (1) o modificar (2) un salón. datos es un diccionario con los datos del salón a modificar (opcional, solo si case es 2).
     Output: tupla (nombreSalon, ubicacion, capacidad, telefonos)
     """
     while True:
-        nombreSalon = input(f"Ingrese el {'' if case == 1 else 'nuevo '}nombre del salón: ")
-        if checkString(nombreSalon):
-            break
-        print("El nombre del salón no puede estar vacío. Intentelo de nuevo.")
-
-    while True:
-        ubicacion = input(f"Ingrese la {'' if case == 1 else 'nueva '}ubicación del salón: ")
-        if checkDireccion(ubicacion):
-            break
-        print("Escriba correctamente, dirección espacio numero.")
-
-    while True:
-        capacidad = input(f"Ingrese la {'' if case == 1 else 'nueva '}capacidad del salón: ")
-        if checkInt(capacidad):
-            capacidad = int(capacidad)
-            if capacidad > 0:
+        if case == 1:
+            nombreSalon = input(f"Ingrese el nombre del salón: ")
+            if checkString(nombreSalon):
                 break
-            print("La capacidad debe ser un número entero positivo. Intentelo de nuevo.")
+            print("El nombre del salón no puede estar vacío. Intentelo de nuevo.")
         else:
-            print("La capacidad debe ser un número entero. Intentelo de nuevo.")
+            nombreSalon = input(f"Ingrese el nuevo nombre del salón o enter para dejar el dato actual [actualmente: {datos['nombreSalon']}]: ").strip()
+            if nombreSalon == "":
+                nombreSalon = datos['nombreSalon']
+                break
+            if checkString(nombreSalon):
+                break
+
+    while True:
+        if case == 1:
+            ubicacion = input(f"Ingrese la ubicación del salón: ")
+            if checkDireccion(ubicacion):
+                break
+            print("Escriba correctamente, dirección espacio numero.")
+        else:
+            ubicacion = input(f"Ingrese la nueva ubicación del salón o enter para dejar el dato actual [actualmente: {datos['ubicacion']}]: ").strip()
+            if ubicacion == "":
+                ubicacion = datos['ubicacion']
+                break
+            if checkDireccion(ubicacion):
+                break
+            print("Escriba correctamente, dirección espacio numero.")
+
+    while True:
+        if case == 1:
+            capacidad = input(f"Ingrese la capacidad del salón: ")
+            if checkInt(capacidad):
+                capacidad = int(capacidad)
+                if capacidad > 0:
+                    break
+                print("La capacidad debe ser un número entero positivo. Intentelo de nuevo.")
+            else:
+                print("La capacidad debe ser un número entero. Intentelo de nuevo.")
+        else:
+            capacidad = input(f"Ingrese la nueva capacidad del salón o enter para dejar el dato actual [actualmente: {datos['capacidad']}]: ").strip()
+            if capacidad == "":
+                capacidad = datos['capacidad']
+                break
+            if checkInt(capacidad):
+                capacidad = int(capacidad)
+                if capacidad > 0:
+                    break
+                print("La capacidad debe ser un número entero positivo. Intentelo de nuevo.")
+            else:
+                print("La capacidad debe ser un número entero. Intentelo de nuevo.")
 
     while True:
         telefonos = []
         for i in range(3):
-            telefono = input(f"Ingrese el {'' if case == 1 else 'nuevo '}teléfono {i+1} (10 dígitos): ")
-            if checkTelefono(telefono):
-                telefonos.append(telefono)
+            if case == 1:
+                telefono = input(f"Ingrese el {'' if case == 1 else 'nuevo '}teléfono {i+1} (10 dígitos): ")
+                if checkTelefono(telefono):
+                    telefonos.append(telefono)
+                else:
+                    print("El teléfono debe ser un número de 10 dígitos. Intentelo de nuevo.")
+                    break
             else:
-                print("El teléfono debe ser un número de 10 dígitos. Intentelo de nuevo.")
-                break
+                telefono = input(f"Ingrese el nuevo teléfono {i+1} o enter para dejar el dato actual [actualmente: {datos['telefonos']['telefono' + str(i+1)]}]: ").strip()
+                if telefono == "":
+                    telefonos.append(datos['telefonos']['telefono' + str(i+1)])
+                elif checkTelefono(telefono):
+                    telefonos.append(telefono)
+                else:
+                    print("El teléfono debe ser un número de 10 dígitos. Intentelo de nuevo.")
+                    break
         if len(telefonos) == 3:
             break
 
@@ -300,8 +340,18 @@ def main():
                     print(f"Se ha creado el salón con ID {idSalon} satisfactoriamente.")
                     
                 elif opcionSubmenu == "2": # Opción 2 del submenú
-                    nombreSalon, ubicacion, capacidad, telefonos = getInputSalon(2)
+                    try:
+                        # Abre el archivo salones.json y carga su contenido en un diccionario.
+                        _salones = open("salones.json", "r", encoding="utf-8")
+                        salones = json.load(_salones)
+                        _salones.close()
+                    except (FileNotFoundError, OSError) as detalle:
+                        print("Error al intentar abrir archivo(s):", detalle)
+
                     idSalon = gestorIdSalon(2)
+                    datos = salones[idSalon]
+                    nombreSalon, ubicacion, capacidad, telefonos = getInputSalon(2, datos)
+                    
                     modificarSalon(nombreSalon, ubicacion, capacidad, telefonos, idSalon)
                     print(f"Se ha modificado el salón con ID {idSalon} satisfactoriamente.")
                 

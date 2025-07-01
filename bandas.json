@@ -1,6 +1,6 @@
 {
     "1": {
-        "activo": true,
+        "activo": false,
         "NombreBanda": "soda estereo",
         "Email": "nolose@hotmail.com",
         "Tarifa30Min": 40000,
@@ -13,7 +13,7 @@
         "activo": false,
         "NombreBanda": "soda",
         "Email": "lose@hotmail.com",
-        "Capacidad": 20000,
+        "Tarifa30Min": 40000,
         "Generos": {
             "Genero1": "pop",
             "Genero2": "metal"
@@ -33,7 +33,7 @@
         "activo": false,
         "NombreBanda": "Miranda!",
         "Email": "miranda@popmail.com",
-        "Capacidad": 15000,
+        "Tarifa30Min": 40000,
         "Generos": {
             "Genero1": "pop",
             "Genero2": "electro"
@@ -53,7 +53,7 @@
         "activo": true,
         "NombreBanda": "Babasónicos",
         "Email": "baba@sonico.com",
-        "Capacidad": 18000,
+        "Tarifa30Min": 40000,
         "Generos": {
             "Genero1": "alternativo",
             "Genero2": "pop"
@@ -73,7 +73,7 @@
         "activo": true,
         "NombreBanda": "No Te Va Gustar",
         "Email": "ntvg@ntvg.com",
-        "Capacidad": 25000,
+        "Tarifa30Min": 40000,
         "Generos": {
             "Genero1": "rock",
             "Genero2": "reggae"
@@ -93,7 +93,7 @@
         "activo": false,
         "NombreBanda": "Airbag",
         "Email": "airbag@rockmail.com",
-        "Capacidad": 16000,
+        "Tarifa30Min": 40000,
         "Generos": {
             "Genero1": "rock",
             "Genero2": "balada"
