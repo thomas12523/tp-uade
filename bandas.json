@@ -18,5 +18,85 @@
             "Genero1": "pop",
             "Genero2": "metal"
         }
+    },
+    "3": {
+        "activo": true,
+        "NombreBanda": "Los Redondos",
+        "Email": "indio@rockmail.com",
+        "Tarifa30Min": 50000,
+        "Generos": {
+            "Genero1": "rock",
+            "Genero2": "alternativo"
+        }
+    },
+    "4": {
+        "activo": false,
+        "NombreBanda": "Miranda!",
+        "Email": "miranda@popmail.com",
+        "Capacidad": 15000,
+        "Generos": {
+            "Genero1": "pop",
+            "Genero2": "electro"
+        }
+    },
+    "5": {
+        "activo": true,
+        "NombreBanda": "La Vela Puerca",
+        "Email": "vela@puercarock.com",
+        "Tarifa30Min": 35000,
+        "Generos": {
+            "Genero1": "ska",
+            "Genero2": "rock"
+        }
+    },
+    "6": {
+        "activo": true,
+        "NombreBanda": "Babasónicos",
+        "Email": "baba@sonico.com",
+        "Capacidad": 18000,
+        "Generos": {
+            "Genero1": "alternativo",
+            "Genero2": "pop"
+        }
+    },
+    "7": {
+        "activo": false,
+        "NombreBanda": "Catupecu Machu",
+        "Email": "catu@machu.com",
+        "Tarifa30Min": 42000,
+        "Generos": {
+            "Genero1": "metal",
+            "Genero2": "experimental"
+        }
+    },
+    "8": {
+        "activo": true,
+        "NombreBanda": "No Te Va Gustar",
+        "Email": "ntvg@ntvg.com",
+        "Capacidad": 25000,
+        "Generos": {
+            "Genero1": "rock",
+            "Genero2": "reggae"
+        }
+    },
+    "9": {
+        "activo": true,
+        "NombreBanda": "Eruca Sativa",
+        "Email": "eruca@sativa.com",
+        "Tarifa30Min": 39000,
+        "Generos": {
+            "Genero1": "rock",
+            "Genero2": "progresivo"
+        }
+    },
+    "10": {
+        "activo": false,
+        "NombreBanda": "Airbag",
+        "Email": "airbag@rockmail.com",
+        "Capacidad": 16000,
+        "Generos": {
+            "Genero1": "rock",
+            "Genero2": "balada"
+        }
     }
 }
