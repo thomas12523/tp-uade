@@ -242,19 +242,19 @@ def main():
                     break # No sale del programa, sino que vuelve al menú anterior
                 
                 elif opcionSubmenu == "1":   # Opción 1 del submenú
-                    idBanda = gestorIdBanda(1, bandas)
+                    idBanda = gestorIdBanda(1)
                     nombreBanda, email, telefono,tarifa30Min, generos = getInputBanda(1)
                     bandas = agregarBanda(nombreBanda, email, tarifa30Min, telefono,generos, idBanda)
                     print(f"Se ha ingresado la banda satisfactoriamente.")
                     
                 elif opcionSubmenu == "2":   # Opción 2 del submenú
-                    idBanda = gestorIdBanda(2, bandas)
+                    idBanda = gestorIdBanda(2)
                     nombreBanda, email, telefono,tarifa30Min, generos = getInputBanda(2)
                     bandas = modificarBanda(nombreBanda, email, tarifa30Min, telefono,generos, idBanda)
                     print(f"Se ha modificado la banda satisfactoriamente.")
                 
                 elif opcionSubmenu == "3":   # Opción 3 del submenú
-                    idBanda = gestorIdBanda(3, bandas)
+                    idBanda = gestorIdBanda(3)
                     bandas = inactivarBanda(idBanda)
                     print(f"Se ha inactivado la banda con ID {idBanda} satisfactoriamente.")
                 
