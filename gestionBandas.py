@@ -1,6 +1,6 @@
 import json
 
-def agregarBanda(bandas, nombreBanda, email, tarifa30Min, telefono, generos, idBanda):
+def agregarBanda(nombreBanda, email, tarifa30Min, telefono, generos, idBanda):
     """
     Agrega una nueva banda al diccionario de bandas.
 
@@ -16,6 +16,15 @@ def agregarBanda(bandas, nombreBanda, email, tarifa30Min, telefono, generos, idB
     Retorna:
     - dict: Diccionario actualizado con la nueva banda agregada.
     """
+    
+    try:
+        # Abre el archivo bandas.json y carga su contenido en un diccionario.
+        _bandas = open("bandas.json", "r", encoding="utf-8")
+        bandas = json.load(_bandas)
+        _bandas.close()
+    except (FileNotFoundError, OSError) as detalle:
+        print("Error al intentar abrir archivo(s):", detalle)
+    
     bandas[idBanda] = {
         "activo": True,
         "nombreBanda": nombreBanda,
@@ -27,10 +36,17 @@ def agregarBanda(bandas, nombreBanda, email, tarifa30Min, telefono, generos, idB
             "genero2": generos[1]
         }
     }
-    return bandas
+
+    # Guarda el diccionario actualizado de bandas en el archivo bandas.json.
+    try:
+        _bandas = open("bandas.json", "w", encoding="utf-8")
+        json.dump(bandas, _bandas, ensure_ascii=False, indent=4)
+        _bandas.close()
+    except (FileNotFoundError, OSError) as detalle:
+        print("Error al intentar abrir archivo(s):", detalle)
 
 
-def modificarBanda(bandas, nombreBanda, email, tarifa30Min, telefono, generos, idBanda):
+def modificarBanda(nombreBanda, email, tarifa30Min, telefono, generos, idBanda):
     """
     Modifica los datos de una banda existente en el diccionario.
 
@@ -46,17 +62,34 @@ def modificarBanda(bandas, nombreBanda, email, tarifa30Min, telefono, generos, i
     Retorna:
     - dict: Diccionario actualizado con los datos modificados de la banda.
     """
+    
+    try:
+        # Abre el archivo bandas.json y carga su contenido en un diccionario.
+        _bandas = open("bandas.json", "r", encoding="utf-8")
+        bandas = json.load(_bandas)
+        _bandas.close()
+    except (FileNotFoundError, OSError) as detalle:
+        print("Error al intentar abrir archivo(s):", detalle)
+    
     bandas[idBanda] = {
+        "activo": True,
         "nombreBanda": nombreBanda,
         "email": email,
-        "tarifa30Min": tarifa30Min,
         "telefono": telefono,
+        "tarifa30Min": tarifa30Min,
         "generos": {
             "genero1": generos[0],
             "genero2": generos[1]
         }
     }
-    return bandas
+
+    # Guarda el diccionario actualizado de bandas en el archivo bandas.json.
+    try:
+        _bandas = open("bandas.json", "w", encoding="utf-8")
+        json.dump(bandas, _bandas, ensure_ascii=False, indent=4)
+        _bandas.close()
+    except (FileNotFoundError, OSError) as detalle:
+        print("Error al intentar abrir archivo(s):", detalle)
 
 
 def inactivarBanda(idBanda):
@@ -95,8 +128,6 @@ def listarBandasActivas():
     Retorna:
     - None
     """
-    encontrados = False
-
     try:
         _bandas = open("bandas.json", "r", encoding="utf-8")
         bandas = json.load(_bandas)
@@ -105,15 +136,12 @@ def listarBandasActivas():
         print("Error al intentar abrir archivo(s):", detalle)
 
     for banda in bandas:
-        if bandas[banda]["activo"] == True:
-            encontrados = True
+        if bandas[banda]["activo"]:
             print("IdBanda: "      + banda)
-            print("NombreBanda: "  + bandas[banda]["NombreBanda"])
-            print("Email: "    + bandas[banda]["Email"])
-            print("Tarifa30Min: "    + str(bandas[banda]["Tarifa30Min"]))
-            print("Generos: "     + bandas[banda]["Generos"]["Genero1"]
-                                  + ", " + bandas[banda]["Generos"]["Genero2"])
+            print("NombreBanda: "  + bandas[banda]["nombreBanda"])
+            print("Email: "    + bandas[banda]["email"])
+            print("Telefono: " + bandas[banda]["telefono"])
+            print("Tarifa30Min: "    + str(bandas[banda]["tarifa30Min"]))
+            print("Generos: "     + bandas[banda]["generos"]["genero1"]
+                                  + ", " + bandas[banda]["generos"]["genero2"])
             print("-------------------------")
-
-    if not encontrados:
-        print("No hay bandas activas.")

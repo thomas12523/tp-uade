@@ -1,102 +1,123 @@
 {
     "1": {
         "activo": false,
-        "NombreBanda": "soda estereo",
-        "Email": "nolose@hotmail.com",
-        "Tarifa30Min": 40000,
-        "Generos": {
-            "Genero1": "rock",
-            "Genero2": "jazz"
+        "nombreBanda": "soda estereo",
+        "email": "nolose@hotmail.com",
+        "telefono": "1134567890",
+        "tarifa30Min": 40000,
+        "generos": {
+            "genero1": "rock",
+            "genero2": "jazz"
         }
     },
     "2": {
         "activo": false,
-        "NombreBanda": "soda",
-        "Email": "lose@hotmail.com",
-        "Tarifa30Min": 40000,
-        "Generos": {
-            "Genero1": "pop",
-            "Genero2": "metal"
+        "nombreBanda": "soda",
+        "email": "lose@hotmail.com",
+        "telefono": "1145678901",
+        "tarifa30Min": 40000,
+        "generos": {
+            "genero1": "pop",
+            "genero2": "metal"
         }
     },
     "3": {
         "activo": true,
-        "NombreBanda": "Los Redondos",
-        "Email": "indio@rockmail.com",
-        "Tarifa30Min": 50000,
-        "Generos": {
-            "Genero1": "rock",
-            "Genero2": "alternativo"
+        "nombreBanda": "Los Redondos",
+        "email": "indio@rockmail.com",
+        "telefono": "1156789012",
+        "tarifa30Min": 50000,
+        "generos": {
+            "genero1": "rock",
+            "genero2": "alternativo"
         }
     },
     "4": {
         "activo": false,
-        "NombreBanda": "Miranda!",
-        "Email": "miranda@popmail.com",
-        "Tarifa30Min": 40000,
-        "Generos": {
-            "Genero1": "pop",
-            "Genero2": "electro"
+        "nombreBanda": "Miranda!",
+        "email": "miranda@popmail.com",
+        "telefono": "1167890123",
+        "tarifa30Min": 40000,
+        "generos": {
+            "genero1": "pop",
+            "genero2": "electro"
         }
     },
     "5": {
         "activo": true,
-        "NombreBanda": "La Vela Puerca",
-        "Email": "vela@puercarock.com",
-        "Tarifa30Min": 35000,
-        "Generos": {
-            "Genero1": "ska",
-            "Genero2": "rock"
+        "nombreBanda": "La Vela Puerca",
+        "email": "vela@puercarock.com",
+        "telefono": "1178901234",
+        "tarifa30Min": 35000,
+        "generos": {
+            "genero1": "ska",
+            "genero2": "rock"
         }
     },
     "6": {
         "activo": true,
-        "NombreBanda": "Babasónicos",
-        "Email": "baba@sonico.com",
-        "Tarifa30Min": 40000,
-        "Generos": {
-            "Genero1": "alternativo",
-            "Genero2": "pop"
+        "nombreBanda": "Babasónicos",
+        "email": "baba@sonico.com",
+        "telefono": "1189012345",
+        "tarifa30Min": 40000,
+        "generos": {
+            "genero1": "alternativo",
+            "genero2": "pop"
         }
     },
     "7": {
         "activo": false,
-        "NombreBanda": "Catupecu Machu",
-        "Email": "catu@machu.com",
-        "Tarifa30Min": 42000,
-        "Generos": {
-            "Genero1": "metal",
-            "Genero2": "experimental"
+        "nombreBanda": "Catupecu Machu",
+        "email": "catu@machu.com",
+        "telefono": "1190123456",
+        "tarifa30Min": 42000,
+        "generos": {
+            "genero1": "metal",
+            "genero2": "experimental"
         }
     },
     "8": {
         "activo": true,
-        "NombreBanda": "No Te Va Gustar",
-        "Email": "ntvg@ntvg.com",
-        "Tarifa30Min": 40000,
-        "Generos": {
-            "Genero1": "rock",
-            "Genero2": "reggae"
+        "nombreBanda": "No Te Va Gustar",
+        "email": "ntvg@ntvg.com",
+        "telefono": "1101234567",
+        "tarifa30Min": 40000,
+        "generos": {
+            "genero1": "rock",
+            "genero2": "reggae"
         }
     },
     "9": {
         "activo": true,
-        "NombreBanda": "Eruca Sativa",
-        "Email": "eruca@sativa.com",
-        "Tarifa30Min": 39000,
-        "Generos": {
-            "Genero1": "rock",
-            "Genero2": "progresivo"
+        "nombreBanda": "Eruca Sativa",
+        "email": "eruca@sativa.com",
+        "telefono": "1112345678",
+        "tarifa30Min": 39000,
+        "generos": {
+            "genero1": "rock",
+            "genero2": "progresivo"
         }
     },
     "10": {
         "activo": false,
-        "NombreBanda": "Airbag",
-        "Email": "airbag@rockmail.com",
-        "Tarifa30Min": 40000,
-        "Generos": {
-            "Genero1": "rock",
-            "Genero2": "balada"
+        "nombreBanda": "Airbag",
+        "email": "airbag@rockmail.com",
+        "telefono": "1123456789",
+        "tarifa30Min": 40000,
+        "generos": {
+            "genero1": "rock",
+            "genero2": "balada"
+        }
+    },
+    "11": {
+        "activo": true,
+        "nombreBanda": "aerosmith 2",
+        "email": "aaa@g.com",
+        "telefono": "1483645323",
+        "tarifa30Min": "205000",
+        "generos": {
+            "genero1": "rock",
+            "genero2": "metal"
         }
     }
 }

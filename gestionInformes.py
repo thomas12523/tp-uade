@@ -1,7 +1,7 @@
 from datetime import datetime
 import json
 
-def listarEventosDelMes():
+def listarEventosDelMes(mes:str):
     """
     Lista todos los eventos programados para un mes específico.
     
@@ -28,7 +28,7 @@ def listarEventosDelMes():
 
         eventDate= datetime.strptime(evento["fechaEvento"],"%Y.%m.%d")
             
-        if eventDate.month == datetime.now().month:
+        if eventDate.month == int(mes):
             fecha_hora = id_evento
             idEvento = evento['idEvento']
             idBanda = evento['idBanda']

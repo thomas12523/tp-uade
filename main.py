@@ -216,6 +216,18 @@ def getInputBanda(case):
 
     return nombreBanda, email, telefono,tarifa30Min, generos
 
+def getInputMes():
+    """
+    Descripción: Solicita el mes para filtrar los eventos.
+    Input: Ninguno.
+    Output: mes (int): Mes ingresado por el usuario.
+    """
+    while True:
+        mes = input("Ingrese el mes (1-12): ")
+        if mes.isdigit() and 1 <= int(mes) <= 12:
+            return int(mes)
+        else:
+            print("Mes inválido. Debe ser un número entre 1 y 12.")
 #----------------------------------------------------------------------------------------------
 # CUERPO PRINCIPAL
 #----------------------------------------------------------------------------------------------
@@ -392,16 +404,28 @@ def main():
                     break # No sale del programa, sino que vuelve al menú anterior
                 
                 elif opcionSubmenu == "1":   # Opción 1 del submenú
-                    
+                    try:
+                        # Abre el archivo salones.json y carga su contenido en un diccionario.
+                        _salones = open("salones.json", "r", encoding="utf-8")
+                        salones = json.load(_salones)
+                        _salones.close()
+                    except (FileNotFoundError, OSError) as detalle:
+                        print("Error al intentar abrir archivo(s):", detalle)
+
+                    try:
+                        # Abre el archivo bandas.json y carga su contenido en un diccionario.
+                        _bandas = open("bandas.json", "r", encoding="utf-8")
+                        bandas = json.load(_bandas)
+                        _bandas.close()
+                    except (FileNotFoundError, OSError) as detalle:
+                        print("Error al intentar abrir archivo(s):", detalle)
+
                     while True:
                         idBanda = input("Ingrese el ID de la Banda: ")
                         idSalon = input("Ingrese el ID del Salón: ")
                         if idBanda in bandas and idSalon in salones:
-                            eventos = gestionarEvento(idBanda, idSalon)
+                            gestionarEvento(idBanda, idSalon)
                             print(f"Se ha registrado el evento satisfactoriamente.")
-                            for evento in eventos:
-                                print(f"FechaIngreso: {evento}")
-                                print(eventos[evento])
                             break
                         else:
                             print("El ID de la Banda o del Salón no existe. Por favor, verifique los IDs ingresados.")
@@ -434,7 +458,8 @@ def main():
                     break
       
                 elif opcionSubmenu == "1": # Opción 1 del submenú
-                    listarEventosDelMes()
+                    mes = getInputMes()
+                    listarEventosDelMes(mes)
                     
                 elif opcionSubmenu == "2":   # Opción 2 del submenú
                     resumenCantidadEventosPorBanda()

@@ -18,7 +18,7 @@ def checkGenero(cadena):
     """
     if re.findall(r'^[A-Za-z]+$', cadena) == []:
         return False
-    if not cadena[0]==' ' or not cadena[-1]==' ':
+    if cadena[0]==' ' or cadena[-1]==' ':
         return False
 
     return cadena

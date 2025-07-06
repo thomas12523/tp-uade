@@ -1,13 +1,13 @@
 import time
 import json
 
-def cargarEventos(nombreArchivo):
+def cargarEventos():
     """
     Carga los eventos desde un archivo JSON.
     Si el archivo no existe o hay error, retorna un diccionario vacío.
     """
     try:
-        archivo = open(nombreArchivo, 'r', encoding='utf-8')
+        archivo = open('eventos.json', 'r', encoding='utf-8')
         contenido = archivo.read()
         archivo.close()
         return json.loads(contenido)
@@ -15,19 +15,19 @@ def cargarEventos(nombreArchivo):
         print("Error al intentar abrir archivo(s):", detalle)
         return {}
 
-def guardarEventos(nombreArchivo, eventos):
+def guardarEventos(eventos):
     """
     Guarda los eventos en un archivo JSON.
     """
     try:
-        archivo = open(nombre_archivo, 'w', encoding='utf-8')
+        archivo = open("eventos.json", 'w', encoding='utf-8')
         contenido = json.dumps(eventos, ensure_ascii=False, indent=4)
         archivo.write(contenido)
         archivo.close()
     except (FileNotFoundError, OSError) as detalle:
         print("Error al intentar abrir archivo(s):", detalle)
 
-def gestionarEvento(eventos, idBanda, idSalon):
+def gestionarEvento(idBanda, idSalon):
     """
     Registra un nuevo evento en el diccionario de eventos.
 
@@ -47,23 +47,29 @@ def gestionarEvento(eventos, idBanda, idSalon):
     Retorna:
     - eventos: diccionario actualizado.
     """
+    eventos = cargarEventos()
+
     try:
-        fechaEvento = input("Ingrese la fecha del evento (AAAA.MM.DD): ")
+        fechaEvento = input("Ingrese la fecha del evento (AAAA.MM.DD): ").strip()
         tramosContratados = int(input("Ingrese la cantidad de tramos contratados: "))
 
         fechaHoraRegistro = time.strftime("%Y.%m.%d %H:%M:%S")
 
+        idEvento = str(len(eventos) + 1)
+
         datosEvento = {
-            'idEvento': str(len(eventos) + 1),
-            'idBanda': idBanda,
-            'idSalon': idSalon,
-            'fechaEvento': fechaEvento,
-            'tramosContratados': tramosContratados
+            "idEvento": idEvento,
+            "idBanda": idBanda,
+            "idSalon": idSalon,
+            "fechaEvento": fechaEvento,
+            "tramosContratados": tramosContratados
         }
 
         eventos[fechaHoraRegistro] = datosEvento
-        return eventos
+        guardarEventos(eventos)
+
+        print("Evento guardado correctamente.")
 
     except ValueError:
-        return eventos
+        print("Error: la cantidad de tramos debe ser un número entero.")
 
