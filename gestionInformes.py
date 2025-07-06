@@ -6,14 +6,10 @@ def listarEventosDelMes():
     Lista todos los eventos programados para un mes específico.
     
     Muestra una tabla formateada con la información de todos los eventos
-    que ocurren en el mes indicado, incluyendo fecha/hora, IDs y tramos contratados.
+    que ocurren en el mes actual, incluyendo fecha/hora, IDs y tramos contratados.
     
     Args:
-        eventos (dict): Diccionario con información de eventos donde la clave es el ID
-                        y el valor contiene datos del evento (idEvento, idBanda, idSalon,
-                        fechaEvento, tramosContratados).
-        mes (int): Número del mes (1-12) para filtrar los eventos.
-    
+            
     Returns:
         None: La función imprime directamente los resultados en consola.
     """
@@ -53,10 +49,6 @@ def resumenCantidadEventosPorBanda():
     por mes y filas por banda.
     
     Args:
-        eventos (dict): Diccionario con información de eventos donde cada evento
-                        contiene idBanda, fechaEvento y otros datos.
-        bandas (dict): Diccionario con información de bandas donde la clave
-                        es el idBanda.
     
     Returns:
         None: La función imprime directamente el resumen en consola.
@@ -109,10 +101,6 @@ def resumenMontoEventosPorBanda():
     de cada banda para todos sus eventos del mes.
     
     Args:
-        eventos (dict): Diccionario con eventos que contiene idBanda, fechaEvento,
-                        tramosContratados y otros datos del evento.
-        bandas (dict): Diccionario con información de bandas que incluye
-                        tarifa30Min para cada banda.
     
     Returns:
         None: La función imprime directamente el resumen financiero en consola.
@@ -169,16 +157,10 @@ def topDuracionEventosDelMes():
     mayor duración. Si hay menos de 3 eventos, informa que no hay suficientes.
     
     Args:
-        eventos (dict): Diccionario con información de eventos que incluye
-                        fechaEvento, tramosContratados, idEvento y otros datos.
-        mes (int): Número del mes (1-12) para filtrar los eventos.
     
     Returns:
         None: La función imprime directamente el top 3 en consola.
     
-    Note:
-        La función contiene un error en el algoritmo de ordenamiento 
-        (variable 'j' no está definida correctamente).
     """
     try:
         eventos=open('eventos.json',mode="r", encoding="utf-8")
