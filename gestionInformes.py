@@ -1,7 +1,7 @@
 from datetime import datetime
 import json
 
-def listarEventosDelMes(eventosPath: str):
+def listarEventosDelMes():
     """
     Lista todos los eventos programados para un mes específico.
     
@@ -21,11 +21,11 @@ def listarEventosDelMes(eventosPath: str):
     print('-' * 85)
 
     try:
-        eventos=open(eventosPath,mode="r", encoding="utf-8")
+        eventos=open('eventos.json',mode="r", encoding="utf-8")
         eventosJson=json.load(eventos)
         eventos.close()
     except (FileNotFoundError, OSError, json.JSONDecodeError) as detalle:
-        print("Error al intentar abrir archivo(s):", detalle)
+        print("Error al intentar abrir archivoo:", detalle)
         return {}
      
     for id_evento, evento in eventosJson.items():
@@ -44,7 +44,7 @@ def listarEventosDelMes(eventosPath: str):
 
     return
 
-def resumenCantidadEventosPorBanda(eventosPath: str, bandasPath: str):
+def resumenCantidadEventosPorBanda():
     """
     Genera un resumen de la cantidad total de eventos mensuales por banda.
     
@@ -75,15 +75,15 @@ def resumenCantidadEventosPorBanda(eventosPath: str, bandasPath: str):
     print("-" * 150)
     
     try: 
-        bandas=open(bandasPath,mode="r", encoding="utf-8")
+        bandas=open('bandas.json',mode="r", encoding="utf-8")
         bandasJson=json.load(bandas)
         bandas.close()
 
-        eventos=open(eventosPath,mode="r", encoding="utf-8")
+        eventos=open('eventos.json',mode="r", encoding="utf-8")
         eventosJson=json.load(eventos)
         eventos.close()
     except (FileNotFoundError, OSError, json.JSONDecodeError) as detalle:
-        print("Error al intentar abrir archivo(s):", detalle)
+        print("Error al intentar abrir archivo:", detalle)
         return {}
     
     for idBanda, banda in bandasJson.items():
@@ -100,7 +100,7 @@ def resumenCantidadEventosPorBanda(eventosPath: str, bandasPath: str):
 
     return
 
-def resumenMontoEventosPorBanda(eventosPath: str, bandasPath: str):
+def resumenMontoEventosPorBanda():
     """
     Calcula y muestra el monto total mensual generado por cada banda.
     
@@ -131,15 +131,15 @@ def resumenMontoEventosPorBanda(eventosPath: str, bandasPath: str):
     print("-" * 150)
 
     try:
-        bandas=open(bandasPath,mode="r", encoding="utf-8")
+        bandas=open('bandas.json',mode="r", encoding="utf-8")
         bandasJson=json.load(bandas)
         bandas.close()
 
-        eventos=open(eventosPath,mode="r", encoding="utf-8")
+        eventos=open('eventos.json',mode="r", encoding="utf-8")
         eventosJson=json.load(eventos)
         eventos.close()
     except (FileNotFoundError, OSError, json.JSONDecodeError) as detalle:
-        print("Error al intentar abrir archivo(s):", detalle)
+        print("Error al intentar abrir archivo:", detalle)
         return {}
     
     for idBanda, banda in bandasJson.items():
@@ -147,7 +147,7 @@ def resumenMontoEventosPorBanda(eventosPath: str, bandasPath: str):
         for idEvento, evento in eventosJson.items():
             if str(idBanda) == evento["idBanda"]:
                 eventDate = datetime.strptime(evento["fechaEvento"], "%Y.%m.%d")
-                recuentoEventos[eventDate.month] += evento["tramosContratados"] * banda["tarifa30Min"]
+                recuentoEventos[eventDate.month] += evento["tramosContratados"] * banda["Tarifa30Min"]
                 
         print(f"{idBanda:<10}", end="")
         for i in range(1, 13):
@@ -160,7 +160,7 @@ def resumenMontoEventosPorBanda(eventosPath: str, bandasPath: str):
 def claveOrden(evento):
     return evento[1]['tramosContratados']
 
-def topDuracionEventosDelMes(eventosPath: str):
+def topDuracionEventosDelMes():
     """
     Muestra los 3 eventos con mayor duración de un mes específico.
     
@@ -181,7 +181,7 @@ def topDuracionEventosDelMes(eventosPath: str):
         (variable 'j' no está definida correctamente).
     """
     try:
-        eventos=open(eventosPath,mode="r", encoding="utf-8")
+        eventos=open('eventos.json',mode="r", encoding="utf-8")
         eventosJson=json.load(eventos)
         eventos.close()
     except (FileNotFoundError, OSError, json.JSONDecodeError) as detalle:

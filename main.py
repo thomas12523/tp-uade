@@ -429,19 +429,18 @@ def main():
                     else:
                         input("Opción inválida. Presione ENTER para volver a seleccionar.")
                 print()
-
+                
                 if opcionSubmenu == "0": # Opción salir del submenú
                     break
       
                 elif opcionSubmenu == "1": # Opción 1 del submenú
-                    mes = getInputMes()
-                    listarEventosDelMes(eventos,mes)
+                    listarEventosDelMes()
                     
                 elif opcionSubmenu == "2":   # Opción 2 del submenú
-                    resumenCantidadEventosPorBanda(eventos)
+                    resumenCantidadEventosPorBanda()
                 
                 elif opcionSubmenu == "3":   # Opción 3 del submenú
-                    resumenMontoEventosPorBanda(bandas)
+                    resumenMontoEventosPorBanda()
                 
                 elif opcionSubmenu == "4":   # Opción 4 del submenú
                     topDuracionEventosDelMes()
