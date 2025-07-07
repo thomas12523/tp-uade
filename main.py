@@ -29,10 +29,13 @@ def gestorIdSalon(case):
     Output: IdSalon (str): ID del salón ingresado por el usuario.
     
     """
-    # Abre el archivo salones.json y carga su contenido en un diccionario.
-    _salones = open("salones.json", "r", encoding="utf-8")
-    salones = json.load(_salones)
-    _salones.close()
+    try:
+        # Abre el archivo salones.json y carga su contenido en un diccionario.
+        _salones = open("salones.json", "r", encoding="utf-8")
+        salones = json.load(_salones)
+        _salones.close()
+    except (FileNotFoundError, OSError) as detalle:
+        print("Error al intentar abrir archivo(s):", detalle)
 
     if case == 1:
         while True:
@@ -145,9 +148,13 @@ def gestorIdBanda(case):
     Output: Idbanda (str): ID del banda ingresado por el usuario.
     
     """
-    archivo = open("bandas.json", "r", encoding="utf-8")
-    bandas = json.load(archivo)
-    archivo.close()
+    try:
+        archivo = open("bandas.json", "r", encoding="utf-8")
+        bandas = json.load(archivo)
+        archivo.close()
+    except (FileNotFoundError, OSError) as detalle:
+        print("Error al intentar abrir archivo(s):", detalle)
+
     if case == 1:
         while True:
             idBanda = input("Ingrese el ID de la banda: ")
@@ -170,51 +177,104 @@ def gestorIdBanda(case):
             else:
                 return idBanda
 
-def getInputBanda(case):
+def getInputBanda(case, datos=None):
     """
     Descripción: Solicita los datos necesarios para agregar o modificar un salón. Si es case 1 entonces es para agregar un salón, si es case 2 entonces es para modificar un salón. Se utiliza un condicional para si es case 1 o 2, así se muestra el texto correspondiente. Además, se valida que los datos ingresados sean correctos.
     Input: case es un entero que indica si es para agregar (1) o modificar (2) un salón.
     Output: tupla (nombreSalon, ubicacion, capacidad, telefonos)
     """
     while True:
-        nombreBanda = input(f"Ingrese el {'' if case == 1 else 'nuevo '}nombre de la banda: ")
-        if checkString(nombreBanda):
-            break
-        print("El nombre del banda no puede estar vacío. Intentelo de nuevo.")
-
-    while True:
-        email = input(f"Ingrese el {'' if case == 1 else 'nueva '}email del la banda: ")
-        if checkEmail(email):
-            break
-        print("Escriba correctamente, test@test.com o test@test.org")
-
-    while True:
-        telefono = input(f"Ingrese el {'' if case == 1 else 'nuevo '}telefono de la banda: ")
-        if checkTelefono(telefono):
-            break
-        else:
-            print("Introducir un telefono valido.")
-
-    while True:
-        tarifa30Min = input(f"Ingrese la {'' if case == 1 else 'nueva '}tarifa de 30 minutos de la banda: ")
-        if tarifa30Min.isdigit() and int(tarifa30Min) > 0:
-            break
-        else:
-            print("Introducir una tarifa valida.")
-
-    while True:
-        generos = []
-        for i in range(2):
-            genero = input(f"Ingrese el {'' if case == 1 else 'nuevo '}genero {i+1}: ")
-            if checkGenero(genero):
-                generos.append(genero)
-            else:
-                print("Solo se permite caracteres no numericos. Intentelo de nuevo.")
+        if case == 1:
+            nombreBanda = input(f"Ingrese el nombre de la banda: ")
+            if checkString(nombreBanda):
                 break
-        if len(generos) == 2:
-            break
+            print("El nombre de la banda no puede estar vacío. Intentelo de nuevo.")
+        else:
+            nombreBanda = input(f"Ingrese el nuevo nombre de la banda o enter para dejar el dato actual [actualmente: {datos['nombreBanda']}]: ").strip()
+            if nombreBanda == "":
+                nombreBanda = datos['nombreBanda']
+                break
+            if checkString(nombreBanda):
+                break
 
-    return nombreBanda, email, telefono,tarifa30Min, generos
+
+    while True:
+        if case == 1:
+            email = input(f"Ingrese el email del la banda: ")
+            if checkEmail(email):
+                break
+            print("Escriba correctamente, test@test.com o test@test.org")
+        else:
+            email = input(f"Ingrese el nuevo email de la banda o enter para dejar el dato actual [actualmente: {datos['email']}]: ").strip()
+            if email == "":
+                email = datos['email']
+                break
+            if checkEmail(email):
+                break
+            print("Escriba correctamente, test@test.com o test@test.org")
+
+
+    while True:
+        if case == 1:
+            telefono = input(f"Ingrese el telefono de la banda: ")
+            if checkTelefono(telefono):
+                break
+            else:
+                print("Introducir un telefono valido.")
+        else:
+            telefono = input(f"Ingrese el nuevo teléfono de la banda o enter para dejar el dato actual [actualmente: {datos['telefono']}]: ").strip()
+            if telefono == "":
+                telefono = datos['telefono']
+                break
+            if checkTelefono(telefono):
+                break
+            else:
+                print("Introducir un telefono valido.")
+
+    while True:
+        if case == 1:
+            tarifa30Min = input(f"Ingrese la tarifa de 30 minutos de la banda: ")
+            if tarifa30Min.isdigit() and int(tarifa30Min) > 0:
+                break
+            else:
+                print("Introducir una tarifa valida.")
+        else:
+            tarifa30Min = input(f"Ingrese la nueva tarifa de 30 minutos de la banda o enter para dejar el dato actual [actualmente: {datos['tarifa30Min']}]: ").strip()
+            if tarifa30Min == "":
+                tarifa30Min = datos['tarifa30Min']
+                break
+            if tarifa30Min.isdigit() and int(tarifa30Min) > 0:
+                break
+            else:
+                print("Introducir una tarifa valida.")
+
+    while True:
+        if case == 1:
+            generos = []
+            for i in range(2):
+                genero = input(f"Ingrese el genero {i+1}: ")
+                if checkGenero(genero):
+                    generos.append(genero)
+                else:
+                    print("Solo se permite caracteres no numericos. Intentelo de nuevo.")
+                    break
+            if len(generos) == 2:
+                break
+        else:
+            generos = []
+            for i in range(2):
+                genero = input(f"Ingrese el nuevo genero {i+1} o enter para dejar el dato actual [actualmente: {datos['generos']['genero' + str(i+1)]}]: ").strip()
+                if genero == "":
+                    generos.append(datos['generos']['genero' + str(i+1)])
+                elif checkGenero(genero):
+                    generos.append(genero)
+                else:
+                    print("Solo se permite caracteres no numericos. Intentelo de nuevo.")
+                    break
+            if len(generos) == 2:
+                break
+
+    return nombreBanda, email, telefono,int(tarifa30Min), generos
 
 def getInputMes():
     """
@@ -300,9 +360,19 @@ def main():
                     print(f"Se ha ingresado la banda satisfactoriamente.")
                     
                 elif opcionSubmenu == "2":   # Opción 2 del submenú
+                    try:
+                        # Abre el archivo bandas.json y carga su contenido en un diccionario.
+                        _bandas = open("bandas.json", "r", encoding="utf-8")
+                        bandas = json.load(_bandas)
+                        _bandas.close()
+                    except (FileNotFoundError, OSError) as detalle:
+                        print("Error al intentar abrir archivo(s):", detalle)
+
                     idBanda = gestorIdBanda(2)
-                    nombreBanda, email, telefono,tarifa30Min, generos = getInputBanda(2)
-                    bandas = modificarBanda(nombreBanda, email, tarifa30Min, telefono,generos, idBanda)
+                    datos = bandas[idBanda]
+
+                    nombreBanda, email, telefono, tarifa30Min, generos = getInputBanda(2, datos)
+                    bandas = modificarBanda(nombreBanda, email, tarifa30Min, telefono, generos, idBanda)
                     print(f"Se ha modificado la banda satisfactoriamente.")
                 
                 elif opcionSubmenu == "3":   # Opción 3 del submenú
@@ -468,7 +538,8 @@ def main():
                     resumenMontoEventosPorBanda()
                 
                 elif opcionSubmenu == "4":   # Opción 4 del submenú
-                    topDuracionEventosDelMes()
+                    mes = getInputMes()
+                    topDuracionEventosDelMes(mes)
 
                 input("\nPresione ENTER para volver al menú.") # Pausa entre opciones
                 print("\n\n")

@@ -32,7 +32,6 @@ def gestionarEvento(idBanda, idSalon):
     Registra un nuevo evento en el diccionario de eventos.
 
     Parámetros:
-    - eventos: diccionario actual de eventos.
     - idBanda: ID de la banda (string).
     - idSalon: ID del salón (string).
 

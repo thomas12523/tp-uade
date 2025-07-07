@@ -70,7 +70,7 @@ def checkEmail(email):
     Input: email es del tipo String que representa el correo electrónico a verificar.
     Output: Devuelve True si la cadena es un correo electrónico válido, False en caso contrario.
     """
-    if re.findall(r'^[A-Za-z0-9]+@[A-Za-z0-9]+\.[a-z]{3}$', email) == []:
+    if re.findall(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', email) == []:
         return False
     
     return True 

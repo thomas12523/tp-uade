@@ -11,7 +11,7 @@
         }
     },
     "2": {
-        "activo": false,
+        "activo": true,
         "nombreBanda": "soda",
         "email": "lose@hotmail.com",
         "telefono": "1145678901",
@@ -114,10 +114,32 @@
         "nombreBanda": "aerosmith 2",
         "email": "aaa@g.com",
         "telefono": "1483645323",
-        "tarifa30Min": "205000",
+        "tarifa30Min": 205000,
         "generos": {
             "genero1": "rock",
             "genero2": "metal"
+        }
+    },
+    "12": {
+        "activo": true,
+        "nombreBanda": "prueba",
+        "email": "prueba@gmail.com",
+        "telefono": "1234567890",
+        "tarifa30Min": 100000,
+        "generos": {
+            "genero1": "rap",
+            "genero2": "pop"
+        }
+    },
+    "13": {
+        "activo": true,
+        "nombreBanda": "pepe",
+        "email": "pepe@gmail.com",
+        "telefono": "1234567890",
+        "tarifa30Min": 100000,
+        "generos": {
+            "genero1": "pepe",
+            "genero2": "pepe"
         }
     }
 }

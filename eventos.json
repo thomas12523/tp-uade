@@ -68,5 +68,12 @@
         "idSalon": "10",
         "fechaEvento": "2025.07.10",
         "tramosContratados": 14
+    },
+    "2025.07.06 21:38:03": {
+        "idEvento": "11",
+        "idBanda": "12",
+        "idSalon": "2",
+        "fechaEvento": "2025.07.06",
+        "tramosContratados": 10
     }
 }

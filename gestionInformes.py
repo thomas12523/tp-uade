@@ -135,7 +135,7 @@ def resumenMontoEventosPorBanda():
         for idEvento, evento in eventosJson.items():
             if str(idBanda) == evento["idBanda"]:
                 eventDate = datetime.strptime(evento["fechaEvento"], "%Y.%m.%d")
-                recuentoEventos[eventDate.month] += evento["tramosContratados"] * banda["Tarifa30Min"]
+                recuentoEventos[eventDate.month] += evento["tramosContratados"] * banda["tarifa30Min"]
                 
         print(f"{idBanda:<10}", end="")
         for i in range(1, 13):
@@ -148,7 +148,7 @@ def resumenMontoEventosPorBanda():
 def claveOrden(evento):
     return evento[1]['tramosContratados']
 
-def topDuracionEventosDelMes():
+def topDuracionEventosDelMes(mes):
     """
     Muestra los 3 eventos con mayor duración de un mes específico.
     
@@ -175,7 +175,7 @@ def topDuracionEventosDelMes():
     for id_evento, evento in eventosJson.items():
         eventDate= datetime.strptime(evento["fechaEvento"],"%Y.%m.%d")
 
-        if eventDate.month == datetime.now().month:
+        if eventDate.month == mes:
             eventosDelMes[id_evento]=evento
     
     eventosOrdenados=list(sorted(eventosDelMes.items(), key=claveOrden))

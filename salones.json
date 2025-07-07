@@ -1,6 +1,6 @@
 {
     "1": {
-        "activo": true,
+        "activo": false,
         "nombreSalon": "Chiquimundo",
         "ubicacion": "San Martín",
         "capacidad": 30,
